@@ -68,17 +68,16 @@ public class MagicWand extends Item implements IArcane {
 	}
 
 	@Override
-	public ActionResult<ItemStack> onItemRightClick(ItemStack itemThatWasRightClicked,
-													World world, EntityPlayer techmage, EnumHand hand) {
+	public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer techmage, EnumHand hand) {
 		if (techmage.experienceLevel < this.experienceLevelRequirement) {
-			if (world.isRemote) {G
+			if (world.isRemote) {
 				techmage.sendMessage(new TextComponentString(
 						"Not enough experience!"));
 			}
 		} else if (timer() > this.getSpell().getCooldownInMilliseconds()) {
 			this.castSpellFromWand(techmage, world);
 		}
-		return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, itemThatWasRightClicked);
+		return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, techmage.getHeldItem(hand));
 	}
 
 	private long timer() {
