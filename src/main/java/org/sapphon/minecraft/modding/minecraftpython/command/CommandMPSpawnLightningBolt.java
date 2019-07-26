@@ -22,7 +22,7 @@ public class CommandMPSpawnLightningBolt extends CommandMinecraftPythonServer {
 			int y = world.getTopSolidOrLiquidBlock(new BlockPos(x, 0, z)).getY() - 1;
 			EntityLightningBolt entityLightningBolt = new EntityLightningBolt(world, x, y, z, false);
 			world.addWeatherEffect(entityLightningBolt);
-			world.spawnEntityInWorld(entityLightningBolt);
+			world.spawnEntity(entityLightningBolt);
 	}
 	@Override
 	public String serialize() {

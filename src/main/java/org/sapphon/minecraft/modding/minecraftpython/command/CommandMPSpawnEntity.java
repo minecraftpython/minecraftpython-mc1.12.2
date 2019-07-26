@@ -59,7 +59,7 @@ public class CommandMPSpawnEntity extends CommandMinecraftPythonServer {
 			horse.setHorseTamed(true);
 			horse.setHorseSaddled(true);
 		}
-		world.spawnEntityInWorld(entity);
+		world.spawnEntity(entity);
 	}
 
 	@Override
