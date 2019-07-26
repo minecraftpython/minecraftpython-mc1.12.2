@@ -17,7 +17,7 @@ public class CommandMPTeleport extends CommandMinecraftPythonServer {
 	public String teleportingPlayer;
 
 	public CommandMPTeleport(double x, double y, double z){
-		this(x,y,z, Minecraft.getMinecraft().thePlayer.getDisplayName().getUnformattedText());
+		this(x,y,z, Minecraft.getMinecraft().player.getDisplayName().getUnformattedText());
 	}
 	
 	public CommandMPTeleport(double x, double y, double z, String teleportingPlayerDisplayName){

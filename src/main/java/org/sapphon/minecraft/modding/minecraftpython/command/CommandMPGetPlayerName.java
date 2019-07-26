@@ -4,6 +4,6 @@ import net.minecraft.client.Minecraft;
 
 public class CommandMPGetPlayerName {
 	public String execute(){
-		return Minecraft.getMinecraft().thePlayer.getDisplayName().getUnformattedText();
+		return Minecraft.getMinecraft().player.getDisplayName().getUnformattedText();
 	}
 }

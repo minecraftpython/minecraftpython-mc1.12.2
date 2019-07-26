@@ -6,7 +6,7 @@ import net.minecraft.util.math.Vec3d;
 public class CommandMPGetPlayerLookVector {
 	public double[] execute(){
 		Minecraft minecraft = Minecraft.getMinecraft();
-		Vec3d lookVector = minecraft.thePlayer.getLook(1.0f);
+		Vec3d lookVector = minecraft.player.getLook(1.0f);
 		return new double[]{
 			lookVector.x,
 			lookVector.y,

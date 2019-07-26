@@ -26,13 +26,13 @@ public class CommandMPGetPlayerPosition{
 	
 	private EntityPlayer getCorrectPlayer() {
 		if(nameOfPlayer.equals("")){
-			 return Minecraft.getMinecraft().thePlayer;
+			 return Minecraft.getMinecraft().player;
 		}
 		else{
 			EntityPlayer possibleAnswer = Minecraft.getMinecraft().world.getPlayerEntityByName(nameOfPlayer);//Note this compares by getCommandSenderName whereas GameStart uses DisplayNames.  Never been a problem...yet.
 			if(possibleAnswer == null){
 				JavaProblemHandler.printErrorMessageToDialogBox(new Exception("Problem finding player " + this.nameOfPlayer +  " by name.  Are you sure that player exists on this server?"));
-				possibleAnswer = Minecraft.getMinecraft().thePlayer;	//this isn't great behavior; we're just returning the only player we know for sure we have.  TODO would be implementing a DoNothingPlayerEntity to return.
+				possibleAnswer = Minecraft.getMinecraft().player;	//this isn't great behavior; we're just returning the only player we know for sure we have.  TODO would be implementing a DoNothingPlayerEntity to return.
 			}
 			return possibleAnswer;
 		}

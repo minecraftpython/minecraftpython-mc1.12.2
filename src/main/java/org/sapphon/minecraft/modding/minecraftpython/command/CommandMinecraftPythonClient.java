@@ -10,6 +10,6 @@ public abstract class CommandMinecraftPythonClient extends CommandMinecraftPytho
 	public abstract String serialize();
 	protected abstract String getTargetPlayerName();
 	public boolean isIntendedForThisClient(Minecraft minecraft){
-		return minecraft.thePlayer.getDisplayName().equals(this.getTargetPlayerName());
+		return minecraft.player.getDisplayName().equals(this.getTargetPlayerName());
 	}
 }

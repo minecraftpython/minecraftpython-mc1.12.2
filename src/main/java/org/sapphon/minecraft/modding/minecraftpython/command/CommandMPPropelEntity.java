@@ -17,7 +17,7 @@ public class CommandMPPropelEntity extends CommandMinecraftPythonServer {
 	public int idToPropel;
 
 	public CommandMPPropelEntity(double x, double y, double z) {
-		this(x, y, z, Minecraft.getMinecraft().thePlayer.getEntityId());
+		this(x, y, z, Minecraft.getMinecraft().player.getEntityId());
 	}
 
 	public CommandMPPropelEntity(double x, double y, double z,
