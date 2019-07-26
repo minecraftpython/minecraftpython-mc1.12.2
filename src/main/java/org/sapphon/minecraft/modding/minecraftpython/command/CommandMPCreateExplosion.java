@@ -34,7 +34,7 @@ public class CommandMPCreateExplosion extends CommandMinecraftPythonServer {
 
 	public void doWork() {
 		WorldServer worldserver = FMLCommonHandler.instance().getMinecraftServerInstance()
-				.worldServerForDimension(0); // TODO ONLY WORKS IN OVERWORLD FOR
+				.getWorld(0); // TODO ONLY WORKS IN OVERWORLD FOR
 												// NOW
 		worldserver.createExplosion(new Entity(worldserver) {
 			@Override

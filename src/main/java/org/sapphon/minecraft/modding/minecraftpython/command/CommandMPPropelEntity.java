@@ -36,7 +36,7 @@ public class CommandMPPropelEntity extends CommandMinecraftPythonServer {
 	}
 
 	public void doWork() {
-		World world = FMLCommonHandler.instance().getMinecraftServerInstance().worldServerForDimension(0);
+		World world = FMLCommonHandler.instance().getMinecraftServerInstance().getWorld(0);
 		List<Entity> list = new ArrayList<Entity>(world.loadedEntityList);
 		Entity toPropel = null;
 		for (Entity entity : list) {

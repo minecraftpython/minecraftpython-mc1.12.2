@@ -45,7 +45,7 @@ public class CommandMPSetBlock extends CommandMinecraftPythonServer {
 
 	public void doWork() {
 		WorldServer worldserver = FMLCommonHandler.instance().getMinecraftServerInstance()
-				.worldServerForDimension(0);// TODO
+				.getWorld(0);// TODO
 		Block blocky = BlockFinder.getBlockWithName(blockType);
 		
 		boolean setBlock = worldserver.setBlockState(new BlockPos(x, y, z), blocky.getStateFromMeta(metadata));

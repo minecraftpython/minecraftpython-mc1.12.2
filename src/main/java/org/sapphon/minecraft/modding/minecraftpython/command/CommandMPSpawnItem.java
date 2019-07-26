@@ -55,7 +55,7 @@ public class CommandMPSpawnItem extends CommandMinecraftPythonServer {
 	
 	public void doWork() {
 		WorldServer worldserver = FMLCommonHandler.instance().getMinecraftServerInstance()
-				.worldServerForDimension(0);// TODO ONLY WORKS IN OVERWORLD FOR NOW
+				.getWorld(0);// TODO ONLY WORKS IN OVERWORLD FOR NOW
 		Item item = ItemLookup.getItemByName(name, worldserver);
 		EntityItem entityWrapperForTheItemWithoutAHandToHoldIt = new EntityItem(worldserver, x, y, z);
 		ItemStack theStack = new ItemStack(item, numberOfItemsToSpawn);

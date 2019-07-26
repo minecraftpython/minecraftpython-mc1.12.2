@@ -15,7 +15,7 @@ public class CommandMPSpawnLightningBolt extends CommandMinecraftPythonServer {
 	
 	@Override
 	public void doWork() {
-		WorldServer world = FMLCommonHandler.instance().getMinecraftServerInstance().worldServerForDimension(0);
+		WorldServer world = FMLCommonHandler.instance().getMinecraftServerInstance().getWorld(0);
 			int x = -175;
 			int z = 60;
 			
