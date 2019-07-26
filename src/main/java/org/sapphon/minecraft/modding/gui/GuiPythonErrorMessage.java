@@ -58,19 +58,19 @@ public class GuiPythonErrorMessage extends GuiScreen {
 	public void drawScreen(int par1, int par2, float par3) {
 		try{
 		this.drawDefaultBackground();
-		this.drawCenteredString(this.fontRendererObj, "Python had a problem understanding you!", this.width / 2, 40,
+		this.drawCenteredString(this.fontRenderer, "Python had a problem understanding you!", this.width / 2, 40,
 				16777215);
 		int yOffsetOfFirstLine = 80;
 		int charactersToPermitPerLine = 60;
 		if (populateMessagesToDisplay(charactersToPermitPerLine)) {
 			for (int i = 0; i < messagesToDisplay.size(); i++) {
-				this.drawCenteredString(this.fontRendererObj, messagesToDisplay.get(i).trim(), this.width / 2,
+				this.drawCenteredString(this.fontRenderer, messagesToDisplay.get(i).trim(), this.width / 2,
 						yOffsetOfFirstLine + (i * 10), 16777215);
 			}
 			messagesToDisplay.clear();
 		}
 		else{
-			this.drawCenteredString(this.fontRendererObj, rawMessage.trim(), this.width / 2,
+			this.drawCenteredString(this.fontRenderer, rawMessage.trim(), this.width / 2,
 					yOffsetOfFirstLine, 16777215);
 		}
 		super.drawScreen(par1, par2, par3);
