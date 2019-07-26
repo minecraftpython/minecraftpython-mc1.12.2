@@ -1,0 +1,4 @@
+#name<=>Tiptoe
+#texture<=>leather_boots
+#This spell doesn't work yet!  EntityData is a powerful command introduced in 1.8.  If we ever upgrade the mod, this spell will work; change the extension from .planned to .py!
+console('entitydata @p {isSilent:1}')

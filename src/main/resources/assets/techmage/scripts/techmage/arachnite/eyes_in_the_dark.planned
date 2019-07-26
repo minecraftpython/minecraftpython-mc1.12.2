@@ -1,0 +1,46 @@
+#name<=>Eyes in the Dark
+#texture<=>spider_eye
+#cooldown<=>28888
+#This spell creates invincible allies that only last for <duration> seconds.  I got them to be invincible, but the Kill All Mobs Of Type command comes in 1.8!  Shelved for now.  If we ever upgrade the mod, this spell will work; change the extension from .planned to .py!
+def the_price_of_failure(x,y,z,length=8, width=8, height=8, numberOfZombies=5, blockToEmergeFrom=DIRT, creature=ZOMBIE, giveEquipment=False,creatureTagOverride="{}"):
+	import random
+	possible_x = list()
+	possible_y = list()
+	possible_z = list()
+	for n in range(x-width,x+width):
+		for k in range(z-length,z+length):
+			for m in range(y+height,y-height,-1):
+				if(getblock(n,m,k) == blockToEmergeFrom):
+					possible_x.append(n)
+					possible_y.append(m)
+					possible_z.append(k)
+					break
+	if(len(possible_x) < 1):
+		yell('Your spell fizzles!')
+		return
+	zombieIndices = random.sample(range(len(possible_x)), numberOfZombies)
+	for i in range(25):
+		for index in zombieIndices:
+			spawnparticle(possible_x[index], possible_y[index]+2, possible_z[index], 5, CLOUD)
+		time.sleep(.2)
+	else:
+		for index in zombieIndices:
+			spawnparticle(possible_x[index], possible_y[index]+2, possible_z[index], 20, LAVA)
+			spawnentity(possible_x[index], possible_y[index]+2, possible_z[index],creature,creatureTagOverride)
+			if(giveEquipment):
+				pass #not implemented
+
+def getInvulnerabilityTag(truth_value):
+	return 'Invulnerable:'+str(1 if truth_value else 0)+''
+
+def getNameTag(name):
+	return 'CustomName:'+str(name)+',CustomNameVisible:1'
+
+def eyes_in_the_dark(x,y,z,radius=10,numSpiders=3,duration=8):
+	yell('Beware the eyes in the dark!')
+	spiderNBT='{'+getInvulnerabilityTag(True)+','+getNameTag('Watcher in the Dark')+'}'
+	yell(spiderNBT)
+	the_price_of_failure(x,y,z,radius,radius,radius,numSpiders,WEB,SPIDER,False,spiderNBT)
+	time.sleep(duration)
+	console('kill @e[x='+str(int(x))+',y='+str(int(y))+',z='+str(int(z))+',r='+radius*5+',Type=Spider]')	#This is the line that doesn't work prior to 1.8!
+eyes_in_the_dark(myX(),myY(),myZ())

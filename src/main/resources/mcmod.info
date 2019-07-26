@@ -1,0 +1,38 @@
+{
+  "modListVersion": 2,
+  "modList": [{
+    "modid": "minecraftpython",
+    "name": "Minecraft Python Programming",
+    "description": "A mod that allows Python programs to affect the Minecraft world in beautiful and oft-intended ways!",
+    "version": "1.10.2-0.5.0",
+    "mcversion": "1.10.2",
+    "url": "http://www.gamestartschool.org",
+    "updateUrl": "",
+    "authorList": [ "sapphon"],
+    "credits": "CSHA DARD JROW NASC NSHI RPIN SPAR STUR WSCH",
+    "logoFile": "",
+    "screenshots": [],
+    "parent": "",
+    "requiredMods": [],
+    "dependencies": [],
+    "dependants": ["techmage"],
+    "useDependencyInformation": true
+  }, {
+    "modid": "techmage",
+    "name": "CodeMage",
+    "description": "A mod that allows magic wands (written in Python) and Potter-esque wizardly pugilism!",
+    "version": "1.10.2-0.3.0",
+    "mcversion": "1.10.2",
+    "url": "http://www.gamestartschool.org",
+    "updateUrl": "",
+    "authorList": [ "sapphon"],
+    "credits": "CSHA DARD JROW NASC NSHI RPIN SPAR STUR WSCH",
+    "logoFile": "",
+    "screenshots": [],
+    "parent": "",
+    "requiredMods": ["minecraftpython"],
+    "dependencies": ["minecraftpython"],
+    "dependants": [],
+    "useDependencyInformation": true
+  }]
+}
