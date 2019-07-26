@@ -60,7 +60,7 @@ public class CommandMPSpawnItem extends CommandMinecraftPythonServer {
 		EntityItem entityWrapperForTheItemWithoutAHandToHoldIt = new EntityItem(worldserver, x, y, z);
 		ItemStack theStack = new ItemStack(item, numberOfItemsToSpawn);
 		if(nbtData!=null){theStack.setTagCompound(nbtData);}
-		entityWrapperForTheItemWithoutAHandToHoldIt.setEntityItemStack(theStack);
+		entityWrapperForTheItemWithoutAHandToHoldIt.setItem(theStack);
 		worldserver.spawnEntity(entityWrapperForTheItemWithoutAHandToHoldIt);
 	}
 
