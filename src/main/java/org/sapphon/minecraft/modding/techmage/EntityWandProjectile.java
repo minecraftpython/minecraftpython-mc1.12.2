@@ -34,7 +34,7 @@ public class EntityWandProjectile extends EntityEgg {
 			JavaProblemHandler.printErrorMessageToDialogBox(new Exception(
 					"Problems with the projectile knowing where it landed."));
 		}
-		if (this.worldObj.isRemote) {
+		if (this.world.isRemote) {
 			wand.spellInterpreter.setupImpactVariablesInPython(hitLocation);
 			wand.castStoredSpell();
 			this.setDead();
