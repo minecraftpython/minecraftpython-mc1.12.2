@@ -86,9 +86,9 @@ public class SpellInterpreter {
 		synchronized (interpreter) {
 			if ((positionOfImpact != null)) {
 				try {
-					this.interpreter.set("impact_x", positionOfImpact.xCoord);
-					this.interpreter.set("impact_y", positionOfImpact.yCoord);
-					this.interpreter.set("impact_z", positionOfImpact.zCoord);
+					this.interpreter.set("impact_x", positionOfImpact.x);
+					this.interpreter.set("impact_y", positionOfImpact.y);
+					this.interpreter.set("impact_z", positionOfImpact.z);
 				} catch (Exception e) {
 					PythonProblemHandler.printErrorMessageToDialogBox(e);
 				}
@@ -104,9 +104,9 @@ public class SpellInterpreter {
 		synchronized (interpreter) {
 			if ((rayTrace != null)) {
 				try {
-					this.interpreter.set("ray_x", rayTrace.hitVec.xCoord);
-					this.interpreter.set("ray_y", rayTrace.hitVec.yCoord);
-					this.interpreter.set("ray_z", rayTrace.hitVec.zCoord);
+					this.interpreter.set("ray_x", rayTrace.hitVec.x);
+					this.interpreter.set("ray_y", rayTrace.hitVec.y);
+					this.interpreter.set("ray_z", rayTrace.hitVec.z);
 				} catch (Exception e) {
 					PythonProblemHandler.printErrorMessageToDialogBox(e);
 				}

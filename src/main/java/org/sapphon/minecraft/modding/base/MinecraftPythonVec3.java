@@ -14,7 +14,7 @@ public class MinecraftPythonVec3 {
 		
 		 }
 		public MinecraftPythonVec3(Vec3d lookVec) {
-			this(lookVec.xCoord, lookVec.yCoord,lookVec.zCoord);
+			this(lookVec.x, lookVec.y,lookVec.z);
 		}
 		public double x;
 		 public double y;

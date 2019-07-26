@@ -8,9 +8,9 @@ public class CommandMPGetPlayerLookVector {
 		Minecraft minecraft = Minecraft.getMinecraft();
 		Vec3d lookVector = minecraft.thePlayer.getLook(1.0f);
 		return new double[]{
-			lookVector.xCoord, 
-			lookVector.yCoord, 
-			lookVector.zCoord
+			lookVector.x,
+			lookVector.y,
+			lookVector.z
 		};
 	}
 }

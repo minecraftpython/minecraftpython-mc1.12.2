@@ -17,9 +17,9 @@ public class EntityWandProjectile extends EntityEgg {
 		this.wand = magicWand;
 		if (isInaccurate)
 			randomizeVelocity();
-		this.motionX = par2EntityLivingBase.getLookVec().xCoord * speed;
-		this.motionY = par2EntityLivingBase.getLookVec().yCoord * speed;
-		this.motionZ = par2EntityLivingBase.getLookVec().zCoord * speed;
+		this.motionX = par2EntityLivingBase.getLookVec().x * speed;
+		this.motionY = par2EntityLivingBase.getLookVec().y * speed;
+		this.motionZ = par2EntityLivingBase.getLookVec().z * speed;
 	}
 
 	private MagicWand wand;
