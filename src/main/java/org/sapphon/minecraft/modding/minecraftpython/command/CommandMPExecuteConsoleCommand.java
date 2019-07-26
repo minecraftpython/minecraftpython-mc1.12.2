@@ -11,6 +11,7 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.fml.common.FMLCommonHandler;
+import org.sapphon.minecraft.modding.minecraftpython.MinecraftPythonMod;
 
 public class CommandMPExecuteConsoleCommand extends
         CommandMinecraftPythonServer {
@@ -110,9 +111,14 @@ public class CommandMPExecuteConsoleCommand extends
         {
             for (int i = 0; i < par2ArrayOfStr.length; ++i)
             {
+                try{
                 if (par1ICommand.isUsernameIndex(par2ArrayOfStr, i) && EntitySelector.matchesMultiplePlayers(par2ArrayOfStr[i]))
                 {
                     return i;
+                }
+                }catch(CommandException e){
+                    MinecraftPythonMod.logger.error("Could not get index of player named " + par2ArrayOfStr[i]);
+                    return -1;
                 }
             }
 
