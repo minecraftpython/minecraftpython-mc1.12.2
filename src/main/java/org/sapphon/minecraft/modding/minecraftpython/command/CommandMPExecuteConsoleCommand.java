@@ -79,7 +79,7 @@ public class CommandMPExecuteConsoleCommand extends
                         {
                             TextComponentTranslation chatcomponenttranslation1 = new TextComponentTranslation(commandexception.getMessage(), commandexception.getErrorObjects());
                             chatcomponenttranslation1.getStyle().setColor(TextFormatting.RED);
-                            playerObject.addChatMessage(chatcomponenttranslation1);
+                            playerObject.sendMessage(chatcomponenttranslation1);
                         }
                     }
 

@@ -71,8 +71,8 @@ public class MagicWand extends Item implements IArcane {
 	public ActionResult<ItemStack> onItemRightClick(ItemStack itemThatWasRightClicked,
 													World world, EntityPlayer techmage, EnumHand hand) {
 		if (techmage.experienceLevel < this.experienceLevelRequirement) {
-			if (world.isRemote) {
-				techmage.addChatMessage(new TextComponentString(
+			if (world.isRemote) {G
+				techmage.sendMessage(new TextComponentString(
 						"Not enough experience!"));
 			}
 		} else if (timer() > this.getSpell().getCooldownInMilliseconds()) {
