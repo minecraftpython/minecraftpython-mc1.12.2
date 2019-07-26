@@ -18,7 +18,7 @@ public class CommandMPBroadcast extends CommandMinecraftPythonServer {
 
 	@Override
 	public void doWork() {
-		FMLCommonHandler.instance().getMinecraftServerInstance().getPlayerList().sendChatMsg(new TextComponentString(this.toBroadcast));
+		FMLCommonHandler.instance().getMinecraftServerInstance().getPlayerList().sendMessage(new TextComponentString(this.toBroadcast));
 	}
 
 	@Override
