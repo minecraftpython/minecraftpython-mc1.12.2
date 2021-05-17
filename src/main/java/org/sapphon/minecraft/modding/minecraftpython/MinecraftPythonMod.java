@@ -1,5 +1,6 @@
 package org.sapphon.minecraft.modding.minecraftpython;
 
+import net.minecraft.client.Minecraft;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.SidedProxy;

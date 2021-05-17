@@ -24,14 +24,14 @@ public class MinecraftPythonScriptLoader {
 			try {
 				File script = new File(ScriptLoaderConstants.MINECRAFT_PROGRAMMING_PATH
 						+ File.separatorChar + scriptFileName + ScriptLoaderConstants.PYTHON_SCRIPT_EXTENSION);
-				magicVessel = MagicItemFactory.create(SpellFactory.createNonCachingSpell(script), MinecraftPythonMod.SCRIPT_RUN_COOLDOWN);
+				magicVessel = MagicItemFactory.create(SpellFactory.createNonCachingSpell(script));
 			} catch (Exception e) {
 				PythonProblemHandler.printErrorMessageToDialogBox(e);
 			}
 		}
 	}
 
-	public IArcane getMagicVessel(){
+	public RudimentaryMagicItem getMagicVessel(){
 		return magicVessel;
 	}
 

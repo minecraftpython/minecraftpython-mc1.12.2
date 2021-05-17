@@ -1,13 +1,11 @@
 package org.sapphon.minecraft.modding.techmage;
 
-import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
-import net.minecraftforge.fml.common.registry.ForgeRegistries;
 import org.sapphon.minecraft.modding.base.CommonProxy;
 import org.sapphon.minecraft.modding.base.ModConfigurationFlags;
 import org.sapphon.minecraft.modding.minecraftpython.ScriptLoaderConstants;
@@ -35,7 +33,7 @@ public class TechMageMod {
 				ScriptLoaderConstants.setResourcePath(event);
 			}
 			//register key handler
-			MinecraftForge.EVENT_BUS.register(MagicItemClickHandler.class);
+			MinecraftForge.EVENT_BUS.register(MagicItemEventHandler.class);
 		}
 	}
 

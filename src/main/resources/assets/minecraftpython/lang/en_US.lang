@@ -1,2 +1,3 @@
-key.minecraftpython.category=Minecraft Programming Mod
-key.castspell.desc=Run your Python code
+key.minecraftpython.category=Minecraft Python Programming Mod
+key.castspell.desc=Run Python Immediately
+key.recordspell.desc=Create Magic Wand From Held Item
