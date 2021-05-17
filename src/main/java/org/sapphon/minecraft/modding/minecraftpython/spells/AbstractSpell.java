@@ -3,10 +3,9 @@ package org.sapphon.minecraft.modding.minecraftpython.spells;
 import org.python.core.PyCode;
 import org.python.util.PythonInterpreter;
 import org.sapphon.minecraft.modding.base.JavaFileIOHelper;
+import org.sapphon.minecraft.modding.minecraftpython.MinecraftPythonMod;
 import org.sapphon.minecraft.modding.minecraftpython.problemhandlers.JavaProblemHandler;
-import org.sapphon.minecraft.modding.techmage.ArcaneArmory;
 import org.sapphon.minecraft.modding.techmage.SpellMetadataConstants;
-import org.sapphon.minecraft.modding.techmage.wands.WandType;
 
 import java.io.File;
 import java.util.LinkedHashMap;
@@ -66,17 +65,6 @@ public abstract class AbstractSpell implements ISpell {
 	public String getDisplayName(){
 		return getMetadataValueOrNONEIfNotPresent(SpellMetadataConstants.KEY_SPELL_NAME);
 	}
-	
-	@Override
-	public boolean hasCustomTexture(){
-		return getMetadataValueOrNONEIfNotPresent(SpellMetadataConstants.KEY_TEXTURE_NAME) != SpellMetadataConstants.NONE;
-	}
-	
-	@Override
-	public String getCustomTextureName(){
-		return getMetadataValueOrNONEIfNotPresent(SpellMetadataConstants.KEY_TEXTURE_NAME);
-	}
-	
 
 	@Override
 	public String getAuthorName() {
@@ -87,20 +75,7 @@ public abstract class AbstractSpell implements ISpell {
 		return value;
 
 	}
-	@Override
-	public WandType getWandType(){
-		if (getMetadataValueOrNONEIfNotPresent(SpellMetadataConstants.KEY_WAND_TYPE) != SpellMetadataConstants.NONE){
-			String wandTypeString=getMetadataValueOrNONEIfNotPresent(SpellMetadataConstants.KEY_WAND_TYPE);
-			if(wandTypeString.toLowerCase().equals("ray")){
-					return WandType.RAY;
-			}
-			else if(wandTypeString.toLowerCase().equals("projectile")){
-					return WandType.PROJECTILE;
-			}
-		}
-		return WandType.LOCAL;
-	}
-	
+
 	@Override
 	public long getCooldownInMilliseconds(){
 		
@@ -108,7 +83,7 @@ public abstract class AbstractSpell implements ISpell {
 			return Long.parseLong(getMetadataValueOrNONEIfNotPresent(SpellMetadataConstants.KEY_COOLDOWN_MILLIS));
 		}
 		else{
-			return ArcaneArmory.GLOBAL_WAND_COOLDOWN;
+			return MinecraftPythonMod.SCRIPT_RUN_COOLDOWN;
 		}
 	}
 

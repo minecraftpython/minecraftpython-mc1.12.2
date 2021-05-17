@@ -9,6 +9,5 @@ public class SpellMetadataConstants {
 	public static final String KEY_AUTHOR_NAME = "author";
 	public static final String NONE = "NONE";
 	public static final String KEY_SPELL_NAME = "name";
-	public static final String KEY_TEXTURE_NAME="texture";
-
+	public static final String KEY_SPELL_PYTHON = "spellPython"
 }
