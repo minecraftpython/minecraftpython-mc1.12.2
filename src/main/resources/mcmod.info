@@ -3,13 +3,23 @@
   "modList": [{
     "modid": "minecraftpython",
     "name": "Minecraft Python Programming",
-    "description": "A mod that allows Python programs to affect the Minecraft world in beautiful and oft-intended ways!",
+    "description": "A mod that allows Python programs to affect the Minecraft world in many (and oft-intended) ways and in real time while you play!",
     "version": "1.12.2-0.6.0",
     "mcversion": "1.12.2",
-    "url": "http://www.gamestartschool.org",
+    "url": "https://github.com/minecraftpython/minecraftpython-mc1.12.2",
     "updateUrl": "",
     "authorList": [ "sapphon"],
-    "credits": "CSHA DARD JROW NASC NSHI RPIN SPAR STUR WSCH",
+    "credits": "Antonio Perez
+    David Arditti
+    Jake North
+    Jeff Rowe
+    Nathan Aschenbach
+    Nate Shiff
+    Renee Pinter
+    Roland Jarvis
+    Stuart Parnes
+    Sarah Turner
+    Wesley Schacht",
     "logoFile": "",
     "screenshots": [],
     "parent": "",
@@ -20,13 +30,23 @@
   }, {
     "modid": "techmage",
     "name": "CodeMage",
-    "description": "A mod that allows magic wands (written in Python) and Potter-esque wizardly pugilism!",
-    "version": "1.12.2-0.4.0",
+    "description": "A mod that adds 'magic wands' (written in Python) to Minecraft!",
+    "version": "1.12.2-0.5.0",
     "mcversion": "1.12.2",
     "url": "http://www.gamestartschool.org",
     "updateUrl": "",
     "authorList": [ "sapphon"],
-    "credits": "CSHA DARD JROW NASC NSHI RPIN SPAR STUR WSCH",
+    "credits": "Antonio Perez
+                   David Arditti
+                   Jake North
+                   Jeff Rowe
+                   Nathan Aschenbach
+                   Nate Shiff
+                   Renee Pinter
+                   Roland Jarvis
+                   Stuart Parnes
+                   Sarah Turner
+                   Wesley Schacht",
     "logoFile": "",
     "screenshots": [],
     "parent": "",
