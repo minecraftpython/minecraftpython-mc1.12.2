@@ -1,6 +1,7 @@
 package org.sapphon.minecraft.modding.techmage;
 
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
@@ -33,16 +34,8 @@ public class TechMageMod {
 			if(!ScriptLoaderConstants.resourcePathExists()){
 				ScriptLoaderConstants.setResourcePath(event);
 			}
-				for (MagicWand wand : ArcaneArmory.SINGLETON().getWands()) {
-					wand.setRegistryName(new ResourceLocation("techmage", wand.getUnlocalizedName()));
-					ForgeRegistries.ITEMS.register(wand);
-					String wandDisplayName = wand.getSpell().getDisplayName();
-					if (wandDisplayName != SpellMetadataConstants.NONE) {
-						/*LanguageRegistry.instance().addStringLocalization(
-								wand.getUnlocalizedName() + ".name", "en_US",
-								wandDisplayName);*/
-					}
-				}
+			//register key handler
+			MinecraftForge.EVENT_BUS.register(MagicItemClickHandler.class);
 		}
 	}
 
