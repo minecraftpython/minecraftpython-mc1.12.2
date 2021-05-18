@@ -9,7 +9,7 @@
     "url": "https://github.com/minecraftpython/minecraftpython-mc1.12.2",
     "updateUrl": "",
     "authorList": [ "sapphon"],
-    "credits": "Antonio Perez, David Arditti, Jake North, Jeff Rowe, Nathan Aschenbach, Nate Shiff, Renee Pinter, Roland Jarvis, Stuart Parnes, Sarah Turner, Wesley Schacht",
+    "credits": "The Team: Antonio Perez, David Arditti, Jake North, Jeff Rowe, Mike Kundrat, Mike Walker Industries, Nathan Aschenbach, Nate Shiff, Renee Pinter, Roland Jarvis, Stuart Parnes, Sarah Turner, Wesley Schacht.  Special thanks to the authors of `mcpi` for the original idea of a Python API for Minecraft.",
     "logoFile": "",
     "screenshots": [],
     "parent": "",
