@@ -1,7 +1,6 @@
 package org.sapphon.minecraft.modding.minecraftpython;
 
-import net.minecraft.client.Minecraft;
-import net.minecraftforge.fml.common.FMLCommonHandler;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
@@ -18,7 +17,9 @@ import org.sapphon.minecraft.modding.base.DedicatedServerProxy;
 import org.sapphon.minecraft.modding.base.ModConfigurationFlags;
 import org.sapphon.minecraft.modding.minecraftpython.command.PacketHandlerMinecraftPythonServerCommand;
 import org.sapphon.minecraft.modding.minecraftpython.command.PacketMinecraftPythonServerCommand;
+import org.sapphon.minecraft.modding.minecraftpython.event.MinecraftPythonKeyHandler;
 import org.sapphon.minecraft.modding.minecraftpython.spells.ThreadFactory;
+import org.sapphon.minecraft.modding.minecraftpython.event.MagicItemEventHandler;
 
 @Mod(modid = MinecraftPythonMod.MODID, version = MinecraftPythonMod.VERSION, name = MinecraftPythonMod.MODID)
 public class MinecraftPythonMod {
@@ -64,14 +65,12 @@ public class MinecraftPythonMod {
 	@Mod.EventHandler
 	public void load(FMLInitializationEvent event) {
 		if (isEnabled() && !(proxy instanceof DedicatedServerProxy)) {
-			FMLCommonHandler
-					.instance()
-					.bus()
-					.register(
+			MinecraftForge.EVENT_BUS.register(
 							new MinecraftPythonKeyHandler(
 									MinecraftPythonScriptLoader.SINGLETON()
 											.getMagicVessel()));
 		}
+		MinecraftForge.EVENT_BUS.register(MagicItemEventHandler.class);
 		proxy.registerRenderers();
 	}
 

@@ -8,7 +8,7 @@ import org.sapphon.minecraft.modding.minecraftpython.command.SpellInterpreter;
 import org.sapphon.minecraft.modding.minecraftpython.spells.ISpell;
 import org.sapphon.minecraft.modding.minecraftpython.spells.SpellCastingRunnable;
 import org.sapphon.minecraft.modding.minecraftpython.spells.SpellThreadFactory;
-import org.sapphon.minecraft.modding.techmage.SpellMetadataConstants;
+import org.sapphon.minecraft.modding.minecraftpython.spells.SpellMetadataConstants;
 
 public class RudimentaryMagicItem {
     private ISpell storedSpell;

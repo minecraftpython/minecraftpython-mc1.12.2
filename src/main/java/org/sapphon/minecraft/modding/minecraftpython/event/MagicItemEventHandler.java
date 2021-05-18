@@ -1,4 +1,4 @@
-package org.sapphon.minecraft.modding.techmage;
+package org.sapphon.minecraft.modding.minecraftpython.event;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -6,6 +6,7 @@ import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import org.sapphon.minecraft.modding.minecraftpython.RudimentaryMagicItem;
+import org.sapphon.minecraft.modding.minecraftpython.spells.SpellMetadataConstants;
 import org.sapphon.minecraft.modding.minecraftpython.spells.StringSpell;
 
 public class MagicItemEventHandler {
