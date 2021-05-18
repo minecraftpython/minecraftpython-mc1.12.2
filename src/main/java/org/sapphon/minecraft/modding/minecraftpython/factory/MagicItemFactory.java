@@ -1,11 +1,11 @@
 package org.sapphon.minecraft.modding.minecraftpython.factory;
 
-import org.sapphon.minecraft.modding.minecraftpython.RudimentaryMagicItem;
+import org.sapphon.minecraft.modding.minecraftpython.BasicMagicItem;
 import org.sapphon.minecraft.modding.minecraftpython.spells.ISpell;
 
 public class MagicItemFactory {
-    public static RudimentaryMagicItem create(ISpell boundSpell) {
-        return new RudimentaryMagicItem(boundSpell);
+    public static BasicMagicItem createBasic(ISpell boundSpell) {
+        return new BasicMagicItem(boundSpell);
     }
 
 }

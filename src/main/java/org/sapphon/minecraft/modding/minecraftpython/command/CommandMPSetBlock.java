@@ -4,12 +4,11 @@ import net.minecraft.block.Block;
 import net.minecraft.nbt.JsonToNBT;
 import net.minecraft.nbt.NBTException;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.server.MinecraftServer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.WorldServer;
 import net.minecraftforge.fml.common.FMLCommonHandler;
-import org.sapphon.minecraft.modding.base.BlockFinder;
+import org.sapphon.minecraft.modding.mcutil.BlockLookup;
 
 public class CommandMPSetBlock extends CommandMinecraftPythonServer {
 
@@ -46,7 +45,7 @@ public class CommandMPSetBlock extends CommandMinecraftPythonServer {
 	public void doWork() {
 		WorldServer worldserver = FMLCommonHandler.instance().getMinecraftServerInstance()
 				.getWorld(0);// TODO
-		Block blocky = BlockFinder.getBlockWithName(blockType);
+		Block blocky = BlockLookup.getBlockWithName(blockType);
 		
 		boolean setBlock = worldserver.setBlockState(new BlockPos(x, y, z), blocky.getStateFromMeta(metadata));
 		if (!tileEntityNbtData.isEmpty() && !tileEntityNbtData.equals("{}")) {

@@ -1,7 +1,7 @@
 package org.sapphon.minecraft.modding.minecraftpython.problemhandlers;
 
 import net.minecraft.client.Minecraft;
-import org.sapphon.minecraft.modding.base.MsgBox;
+import org.sapphon.minecraft.modding.gui.MsgBox;
 import org.sapphon.minecraft.modding.gui.GuiPythonErrorMessage;
 
 public class PythonProblemHandler extends AbstractProblemHandler {

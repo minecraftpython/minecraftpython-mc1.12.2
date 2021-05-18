@@ -1,6 +1,6 @@
 package org.sapphon.minecraft.modding.minecraftpython.problemhandlers;
 
-import org.sapphon.minecraft.modding.base.MsgBox;
+import org.sapphon.minecraft.modding.gui.MsgBox;
 
 public class JavaProblemHandler extends AbstractProblemHandler {
 	public static void printErrorMessageToDialogBox(Exception e){

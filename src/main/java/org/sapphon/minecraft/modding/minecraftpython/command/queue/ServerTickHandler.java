@@ -1,0 +1,14 @@
+package org.sapphon.minecraft.modding.minecraftpython.command.queue;
+
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.gameevent.TickEvent;
+import org.sapphon.minecraft.modding.minecraftpython.command.queue.CommandQueueServerSide;
+
+public class ServerTickHandler {
+	@SubscribeEvent
+	public void onServerTick(TickEvent.ServerTickEvent event){
+		if(event.phase.compareTo(TickEvent.Phase.END) == 0){
+			CommandQueueServerSide.SINGLETON().runAndClearScheduledCommands();
+		}
+	}
+}

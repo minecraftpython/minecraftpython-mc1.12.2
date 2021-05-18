@@ -5,9 +5,10 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import org.sapphon.minecraft.modding.minecraftpython.RudimentaryMagicItem;
-import org.sapphon.minecraft.modding.minecraftpython.spells.SpellMetadataConstants;
-import org.sapphon.minecraft.modding.minecraftpython.spells.StringSpell;
+import org.sapphon.minecraft.modding.minecraftpython.ModConfigurationFlags;
+import org.sapphon.minecraft.modding.minecraftpython.factory.MagicItemFactory;
+import org.sapphon.minecraft.modding.minecraftpython.factory.SpellFactory;
+import org.sapphon.minecraft.modding.minecraftpython.spells.metadata.SpellMetadataConstants;
 
 public class MagicItemEventHandler {
 
@@ -18,9 +19,9 @@ public class MagicItemEventHandler {
 
     @SubscribeEvent
     public static void HandleRightClickMagicWandEvent(PlayerInteractEvent.RightClickItem event) {
-        if (isMagicWand(event.getItemStack())) {
+        if (ModConfigurationFlags.WAND_USE() && isMagicWand(event.getItemStack())) {
             String pythonScript = event.getItemStack().getTagCompound().getString(SpellMetadataConstants.KEY_SPELL_PYTHON);
-            new RudimentaryMagicItem(new StringSpell(pythonScript)).doMagic();
+            MagicItemFactory.createBasic(SpellFactory.createStringSpell(pythonScript)).doMagic();
             event.setCanceled(true);
         }
     }

@@ -7,9 +7,9 @@ import net.minecraft.nbt.JsonToNBT;
 import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTException;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.server.MinecraftServer;
 import net.minecraft.world.WorldServer;
 import net.minecraftforge.fml.common.FMLCommonHandler;
+import org.sapphon.minecraft.modding.mcutil.ItemLookup;
 
 public class CommandMPSpawnItem extends CommandMinecraftPythonServer {
 	private double x;

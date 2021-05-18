@@ -8,6 +8,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.FMLCommonHandler;
+import org.sapphon.minecraft.modding.mcutil.EntityLookup;
 
 public class CommandMPSpawnEntity extends CommandMinecraftPythonServer {
 	public double x;
