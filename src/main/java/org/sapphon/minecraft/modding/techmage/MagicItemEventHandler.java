@@ -2,28 +2,24 @@ package org.sapphon.minecraft.modding.techmage;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.text.TextComponentString;
-import net.minecraftforge.event.entity.living.LivingEntityUseItemEvent;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
-import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-
-import java.util.regex.Pattern;
+import org.sapphon.minecraft.modding.minecraftpython.RudimentaryMagicItem;
+import org.sapphon.minecraft.modding.minecraftpython.spells.StringSpell;
 
 public class MagicItemEventHandler {
 
     private static boolean isMagicWand(ItemStack itemStack){
-
         NBTTagCompound tagCompound = itemStack.getTagCompound();
         return (tagCompound != null && tagCompound.hasKey(SpellMetadataConstants.KEY_SPELL_PYTHON));
     }
 
     @SubscribeEvent
     public static void HandleRightClickMagicWandEvent(PlayerInteractEvent.RightClickItem event) {
-
         if (isMagicWand(event.getItemStack())) {
-            event.getEntity().sendMessage(new TextComponentString(event.getItemStack().getTagCompound().getString(SpellMetadataConstants.KEY_SPELL_PYTHON) + " should be executed at this time"));
+            String pythonScript = event.getItemStack().getTagCompound().getString(SpellMetadataConstants.KEY_SPELL_PYTHON);
+            new RudimentaryMagicItem(new StringSpell(pythonScript)).doMagic();
             event.setCanceled(true);
         }
     }

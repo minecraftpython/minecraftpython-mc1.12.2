@@ -12,38 +12,16 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 public abstract class AbstractSpell implements ISpell {
-	protected String name;
-	protected File pythonScript;
 	protected PyCode pythonCompiledCode;
-	private Map<String, String> spellMetadata;
-	
-	@Override
-	public abstract PyCode getCompiledPythonCode(PythonInterpreter interpreter);
+	protected Map<String, String> spellMetadata;
+	protected boolean metadataStale = true;
 
-	public AbstractSpell(String name, File pythonScript){
-		this.name = name;
-		this.pythonScript = pythonScript;
-		this.spellMetadata = this.readMetadata();
-	}
+	@Override
+	public abstract String getPythonScriptAsString();
 
 	protected void compileSpell(PythonInterpreter interpreter) {
 		pythonCompiledCode = interpreter
 				.compile(this.getPythonScriptAsString());
-	}
-
-	@Override
-	public String getPythonScriptAsString() {
-		return JavaFileIOHelper.SINGLETON.getTextContentOfFile(pythonScript);
-	}
-
-	@Override
-	public File getPythonScriptAsFile() {
-		return pythonScript;
-	}
-
-	@Override
-	public String getSpellShortName() {
-		return name;
 	}
 
 	@Override
@@ -88,6 +66,10 @@ public abstract class AbstractSpell implements ISpell {
 	}
 
 	private String getMetadataValueOrNONEIfNotPresent(String key) {
+		if(metadataStale){
+			spellMetadata = readMetadata();
+			metadataStale = false;
+		}
 		String value = spellMetadata.get(key);
 		if (value != null) {
 			return value;
@@ -95,7 +77,13 @@ public abstract class AbstractSpell implements ISpell {
 		return SpellMetadataConstants.NONE;
 	}
 
-	private Map<String, String> readMetadata() {
+	@Override
+	public PyCode getCompiledPythonCode(PythonInterpreter interpreter) {
+		compileSpell(interpreter);
+		return this.pythonCompiledCode;
+	}
+
+	protected Map<String, String> readMetadata() {
 		Map<String, String> metadataMap = new LinkedHashMap<String, String>();
 		String pythonScriptAsString = getPythonScriptAsString();
 		String[] linesWithWhitespace = pythonScriptAsString.split(System
