@@ -1,14 +1,13 @@
-package org.sapphon.minecraft.modding.minecraftpython;
+package org.sapphon.minecraft.modding.minecraftpython.event;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.settings.KeyBinding;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagString;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.InputEvent;
 import org.lwjgl.input.Keyboard;
-import org.sapphon.minecraft.modding.techmage.SpellMetadataConstants;
+import org.sapphon.minecraft.modding.minecraftpython.MinecraftPythonMod;
+import org.sapphon.minecraft.modding.minecraftpython.RudimentaryMagicItem;
 
 public class MinecraftPythonKeyHandler {
 	public static final int CAST_SPELL_KEY_INDEX = 0;

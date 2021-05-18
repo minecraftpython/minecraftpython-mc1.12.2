@@ -2,12 +2,9 @@ package org.sapphon.minecraft.modding.minecraftpython.spells;
 
 import org.python.core.PyCode;
 import org.python.util.PythonInterpreter;
-import org.sapphon.minecraft.modding.base.JavaFileIOHelper;
 import org.sapphon.minecraft.modding.minecraftpython.MinecraftPythonMod;
 import org.sapphon.minecraft.modding.minecraftpython.problemhandlers.JavaProblemHandler;
-import org.sapphon.minecraft.modding.techmage.SpellMetadataConstants;
 
-import java.io.File;
 import java.util.LinkedHashMap;
 import java.util.Map;
 

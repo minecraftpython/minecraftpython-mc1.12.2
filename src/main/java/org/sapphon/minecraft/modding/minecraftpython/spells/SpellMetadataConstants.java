@@ -1,7 +1,6 @@
-package org.sapphon.minecraft.modding.techmage;
+package org.sapphon.minecraft.modding.minecraftpython.spells;
 
 public class SpellMetadataConstants {
-
 	public static final String KEY_WAND_TYPE = "target_type";
 	public static final String KEY_COOLDOWN_MILLIS = "cooldown";
 	public static final String PAIR_DEFINITION_GLYPH = "<=>";
