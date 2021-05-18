@@ -7,8 +7,9 @@ import java.io.File;
 
 public class NullSpell extends AbstractSpell {
 
-	public NullSpell(String name, File pythonScript) {
-		super(name, pythonScript);
+	@Override
+	public String getPythonScriptAsString() {
+		return "";
 	}
 
 	@Override

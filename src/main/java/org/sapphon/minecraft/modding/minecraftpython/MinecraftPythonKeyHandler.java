@@ -35,8 +35,6 @@ public class MinecraftPythonKeyHandler {
 		}
 		else if (keyBindings[RECORD_SPELL_KEY_INDEX].isPressed()) {
 			device.recordOntoItem(Minecraft.getMinecraft().player.getHeldItemMainhand());
-
 		}
-		//more ifs go here when there are more keys
 	}
 }

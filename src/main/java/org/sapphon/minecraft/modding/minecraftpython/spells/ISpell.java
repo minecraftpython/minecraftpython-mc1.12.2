@@ -9,11 +9,7 @@ import java.io.File;
 public interface ISpell {
 	public String getPythonScriptAsString();
 
-	public File getPythonScriptAsFile();
-
 	public PyCode getCompiledPythonCode(PythonInterpreter interpreter);
-
-	String getSpellShortName();
 
 	public int getRequiredExperienceLevel();
 	
