@@ -29,6 +29,17 @@ public class JavaFileIOHelper {
 		}
 	}
 
+	public void setTextContentOfFile(File file, String content){
+		try{
+			FileUtils.writeStringToFile(file, content);
+		} catch (IOException e) {
+		JavaProblemHandler.printErrorMessageToDialogBox(new Exception(
+				"Could not write contents of file " + file.getAbsolutePath(),
+				e));
+	}
+
+	}
+
 	public void appendStringToFile(File file, String toAppend) {
 		try {
 			FileUtils.write(file, toAppend, true);

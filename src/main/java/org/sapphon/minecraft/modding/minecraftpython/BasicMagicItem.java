@@ -1,25 +1,31 @@
 package org.sapphon.minecraft.modding.minecraftpython;
 
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagInt;
 import net.minecraft.nbt.NBTTagLong;
 import net.minecraft.nbt.NBTTagString;
 import org.sapphon.minecraft.modding.minecraftpython.async.SpellCastingRunnable;
 import org.sapphon.minecraft.modding.minecraftpython.async.ThreadFactory;
 import org.sapphon.minecraft.modding.minecraftpython.interpreter.SpellInterpreter;
+import org.sapphon.minecraft.modding.minecraftpython.io.file.MinecraftPythonScriptLoader;
 import org.sapphon.minecraft.modding.minecraftpython.spells.*;
 import org.sapphon.minecraft.modding.minecraftpython.spells.metadata.SpellMetadataConstants;
 
 public class BasicMagicItem {
     private ISpell storedSpell;
     private long lastCast = 0;
-    private int cooldown;
 
     public BasicMagicItem(ISpell boundSpell) {
         storedSpell = boundSpell;
     }
 
-    public void recordOntoItem(ItemStack toWandify) {
+	public static boolean isMagicWand(ItemStack itemStack){
+        NBTTagCompound tagCompound = itemStack.getTagCompound();
+        return (tagCompound != null && tagCompound.hasKey(SpellMetadataConstants.KEY_SPELL_PYTHON));
+    }
+
+	public void recordOntoItem(ItemStack toWandify) {
 		setWandName(toWandify);
 		setWandCooldown(toWandify);
 		setWandRequiredExperience(toWandify);
@@ -72,4 +78,10 @@ public class BasicMagicItem {
     public ISpell getStoredSpell() {
         return this.storedSpell;
     }
+
+	public void readFromItem(ItemStack heldItemMainhand) {
+    	if(isMagicWand(heldItemMainhand)) {
+			MinecraftPythonScriptLoader.SINGLETON().writeToScript(heldItemMainhand.getTagCompound().getString(SpellMetadataConstants.KEY_SPELL_PYTHON));
+		}
+	}
 }

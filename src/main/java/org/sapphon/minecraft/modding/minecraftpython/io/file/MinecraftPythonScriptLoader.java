@@ -14,6 +14,7 @@ public class MinecraftPythonScriptLoader {
 	private BasicMagicItem magicVessel;
 
 	private static MinecraftPythonScriptLoader SINGLETON;
+	private final File script;
 
 	public static MinecraftPythonScriptLoader SINGLETON() {
 		if (SINGLETON == null)
@@ -24,14 +25,22 @@ public class MinecraftPythonScriptLoader {
 	private MinecraftPythonScriptLoader(String scriptFileName) {
 		File scriptsDirectory = new File(ScriptLoaderConstants.MINECRAFT_PROGRAMMING_PATH);
 		if (scriptsDirectory.canRead() && scriptsDirectory.isDirectory()) {
-			try {
-				File script = new File(ScriptLoaderConstants.MINECRAFT_PROGRAMMING_PATH
+				script = new File(ScriptLoaderConstants.MINECRAFT_PROGRAMMING_PATH
 						+ File.separatorChar + scriptFileName + ScriptLoaderConstants.PYTHON_SCRIPT_EXTENSION);
 				magicVessel = MagicItemFactory.createBasic(SpellFactory.createNonCachingSpell(script));
-			} catch (Exception e) {
-				PythonProblemHandler.printErrorMessageToDialogBox(e);
-			}
+
 		}
+		else{
+			script=null;
+		}
+	}
+
+	public void  writeToScript(String toWrite){
+		JavaFileIOHelper.SINGLETON.setTextContentOfFile(script, toWrite);
+	}
+
+	public String readFromScript(){
+		return JavaFileIOHelper.SINGLETON.getTextContentOfFile(script);
 	}
 
 	public BasicMagicItem getMagicVessel(){

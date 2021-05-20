@@ -12,9 +12,10 @@ import org.sapphon.minecraft.modding.minecraftpython.ModConfigurationFlags;
 
 public class MinecraftPythonKeyHandler {
 	public static final int CAST_SPELL_KEY_INDEX = 0;
-	public static final int RECORD_SPELL_KEY_INDEX = 1;
-	private static final String[] keyDescriptions = { "key.castspell.desc", "key.recordspell.desc"};
-	private static final int[] defaultKeyValues = { Keyboard.KEY_P, Keyboard.KEY_K };
+	public static final int RECORD_WAND_KEY_INDEX = 1;
+	public static final int READ_WAND_KEY_INDEX = 2;
+	private static final String[] keyDescriptions = { "key.castspell.desc", "key.recordwand.desc", "key.readwand.desc"};
+	private static final int[] defaultKeyValues = { Keyboard.KEY_P, Keyboard.KEY_K, Keyboard.KEY_M };
 	private final KeyBinding[] keyBindings;
 	private BasicMagicItem device;
 	
@@ -30,11 +31,16 @@ public class MinecraftPythonKeyHandler {
 	}
 	@SubscribeEvent
 	public void onKeyInput(InputEvent.KeyInputEvent event) {
-		if (keyBindings[CAST_SPELL_KEY_INDEX].isPressed() && ModConfigurationFlags.MINECRAFT_PYTHON_PROGRAMMING()) {
+		if (ModConfigurationFlags.MINECRAFT_PYTHON_PROGRAMMING() &&
+				keyBindings[CAST_SPELL_KEY_INDEX].isPressed()) {
 			device.doMagic();
 		}
-		else if (keyBindings[RECORD_SPELL_KEY_INDEX].isPressed() && ModConfigurationFlags.SPELL_RECORDING()) {
+		else if (ModConfigurationFlags.WAND_RECORDING() &&
+				keyBindings[RECORD_WAND_KEY_INDEX].isPressed()) {
 			device.recordOntoItem(Minecraft.getMinecraft().player.getHeldItemMainhand());
+		} else if (ModConfigurationFlags.WAND_READING() &&
+			keyBindings[READ_WAND_KEY_INDEX].isPressed()) {
+			device.readFromItem(Minecraft.getMinecraft().player.getHeldItemMainhand());
 		}
 	}
 }
