@@ -1,0 +1,4 @@
+key.minecraftpython.category=Minecraft Python Programming Mod
+key.castspell.desc=Run Python Immediately
+key.recordwand.desc=Create Pythonic Wand From Script
+key.readwand.desc=Copy Held Pythonic Wand To Script
