@@ -10,19 +10,34 @@ import org.sapphon.minecraft.modding.minecraftpython.factory.MagicItemFactory;
 import org.sapphon.minecraft.modding.minecraftpython.factory.SpellFactory;
 import org.sapphon.minecraft.modding.minecraftpython.spells.metadata.SpellMetadataConstants;
 
+import java.util.LinkedHashMap;
+import java.util.Map;
+
 public class MagicItemEventHandler {
 
+    Map<ItemStack, BasicMagicItem> magicItems = new LinkedHashMap<>();
+
+    public MagicItemEventHandler() {
+    }
+
     @SubscribeEvent
-    public static void HandleRightClickMagicWandEvent(PlayerInteractEvent.RightClickItem event) {
-        if (ModConfigurationFlags.WAND_USE() && BasicMagicItem.isMagicWand(event.getItemStack())) {
-            String pythonScript = event.getItemStack().getTagCompound().getString(SpellMetadataConstants.KEY_SPELL_PYTHON);
-            MagicItemFactory.createBasic(SpellFactory.createStringSpell(pythonScript)).doMagic();
+    public void HandleRightClickMagicWandEvent(PlayerInteractEvent.RightClickItem event) {
+        ItemStack rightClickedStack = event.getItemStack();
+        if (event.getSide().isClient() && ModConfigurationFlags.WAND_USE() && BasicMagicItem.isMagicWand(rightClickedStack)) {
+            if (magicItems.containsKey(rightClickedStack)) {
+                magicItems.get(rightClickedStack).doMagic();
+            } else {
+                String pythonScript = rightClickedStack.getTagCompound().getString(SpellMetadataConstants.KEY_SPELL_PYTHON);
+                BasicMagicItem newMagicItem = MagicItemFactory.createBasic(SpellFactory.createStringSpell(pythonScript));
+                magicItems.put(rightClickedStack, newMagicItem);
+                newMagicItem.doMagic();
+            }
             event.setCanceled(true);
         }
     }
 
     @SubscribeEvent
-    public static void onTooltip(ItemTooltipEvent event) {
+    public void onTooltip(ItemTooltipEvent event) {
         ItemStack item = event.getItemStack();
         if (BasicMagicItem.isMagicWand(item) && item.getTagCompound() != null) {
             if (item.getTagCompound().hasKey(SpellMetadataConstants.KEY_COOLDOWN_MILLIS)) {
