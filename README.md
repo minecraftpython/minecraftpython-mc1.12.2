@@ -27,7 +27,8 @@ If you know that the item you are holding is a Pythonic wand, you can replace th
 
 ## Issues
 ### Known Issues
-* Recording a magic wand over a magic wand currently creates a Frankenbeast.  Beware!
+* Recording a magic wand over a magic wand currently creates a Frankenbeast.  Beware!  This will be corrected in 0.7.2.
+* The supported version of Python is 2.7.2.  I feel I must personally apologize for that - I know that's not how it should be, but don't know how to fix it.
 
 ### How To Report Issues
 Have a comment, suggestion, or problem? Find help [here](https://github.com/minecraftpython/minecraftpython-mc1.12.2/issues).
