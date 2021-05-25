@@ -75,10 +75,14 @@ public class BasicMagicItem {
         if (this.storedSpell.getConsumedExperiencePoints() > 0) {
             spellcaster.addExperience(-this.storedSpell.getConsumedExperiencePoints());
         }
+        else if(this.storedSpell.getConsumedExperienceLevels() > 0){
+        	spellcaster.addExperienceLevel(-this.getStoredSpell().getConsumedExperienceLevels());
+		}
     }
 
     protected boolean hasEnoughExperienceToUse(EntityPlayer player) {
         return player.experienceLevel >= this.storedSpell.getRequiredExperienceLevels() &&
+				player.experienceLevel >= this.storedSpell.getConsumedExperienceLevels() &&
                 player.experienceTotal >= this.storedSpell.getConsumedExperiencePoints();
     }
 
