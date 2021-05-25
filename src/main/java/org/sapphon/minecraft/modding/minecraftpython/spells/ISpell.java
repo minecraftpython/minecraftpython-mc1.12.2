@@ -11,7 +11,11 @@ public interface ISpell {
 
 	public PyCode getCompiledPythonCode(PythonInterpreter interpreter);
 
-	public int getRequiredExperienceLevel();
+	public int getRequiredExperienceLevels();
+	public int getRequiredExperiencePoints();
+
+	public int getConsumedExperienceLevels();
+	public int getConsumedExperiencePoints();
 	
 	public String getAuthorName();
 	

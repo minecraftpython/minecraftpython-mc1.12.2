@@ -1,5 +1,6 @@
 package org.sapphon.minecraft.modding.minecraftpython;
 
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagInt;
@@ -38,7 +39,7 @@ public class BasicMagicItem {
 	}
 
 	private void setWandRequiredExperience(ItemStack toCostify) {
-		toCostify.setTagInfo(SpellMetadataConstants.KEY_REQUIRED_EXPERIENCE_LEVEL, new NBTTagInt(getStoredSpell().getRequiredExperienceLevel()));
+		toCostify.setTagInfo(SpellMetadataConstants.KEY_REQUIRED_EXPERIENCE_LEVEL, new NBTTagInt(getStoredSpell().getRequiredExperienceLevels()));
 	}
 
 	private void setWandCooldown(ItemStack toCooldownify) {
@@ -62,12 +63,16 @@ public class BasicMagicItem {
         return System.currentTimeMillis() - lastCast;
     }
 
-    public void doMagic() {
-        if (timer() > storedSpell.getCooldownInMilliseconds()) {
-            castStoredSpell();
+    public void attemptMagic(EntityPlayer spellcaster) {
+        if (hasEnoughExperienceToUse(spellcaster) && timer() > storedSpell.getCooldownInMilliseconds()) {
+            doMagic();
             lastCast = System.currentTimeMillis();
         }
     }
+
+    protected boolean hasEnoughExperienceToUse(EntityPlayer player){
+		return player.experienceLevel >= this.storedSpell.getRequiredExperienceLevels();
+	}
 
     protected synchronized void castStoredSpell() {
         ThreadFactory.makeSpellThread(
@@ -83,5 +88,9 @@ public class BasicMagicItem {
     	if(isMagicWand(heldItemMainhand)) {
 			MinecraftPythonScriptLoader.SINGLETON().writeToScript(heldItemMainhand.getTagCompound().getString(SpellMetadataConstants.KEY_SPELL_PYTHON));
 		}
+	}
+
+	public void doMagic() {
+		castStoredSpell();
 	}
 }

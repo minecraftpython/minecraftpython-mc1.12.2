@@ -23,11 +23,30 @@ public abstract class AbstractSpell implements ISpell {
 	}
 
 	@Override
-	public int getRequiredExperienceLevel() {
-		String value = getMetadataValueOrNONEIfNotPresent(SpellMetadataConstants.KEY_REQUIRED_EXPERIENCE_LEVEL);
+	public int getRequiredExperienceLevels() {
+		return getIntMetadataOrZero(SpellMetadataConstants.KEY_REQUIRED_EXPERIENCE_LEVEL);
+	}
+
+	@Override
+	public int getRequiredExperiencePoints() {
+		return getIntMetadataOrZero(SpellMetadataConstants.KEY_REQUIRED_EXPERIENCE_POINTS);
+	}
+
+	@Override
+	public int getConsumedExperienceLevels() {
+		return getIntMetadataOrZero(SpellMetadataConstants.KEY_CONSUMED_EXPERIENCE_LEVELS);
+	}
+
+	@Override
+	public int getConsumedExperiencePoints() {
+		return getIntMetadataOrZero(SpellMetadataConstants.KEY_CONSUMED_EXPERIENCE_POINTS);
+	}
+
+	protected int getIntMetadataOrZero(String metadataKey){
+		String value = getMetadataValueOrNONEIfNotPresent(metadataKey);
 		if (value.equals(SpellMetadataConstants.NONE)) {
 			return 0;
-		}
+		}else{
 		int valueAsInt = 0;
 		try {
 			valueAsInt = Integer.parseInt(value);
@@ -35,6 +54,7 @@ public abstract class AbstractSpell implements ISpell {
 			JavaProblemHandler.printErrorMessageToDialogBox(e);
 		}
 		return valueAsInt;
+		}
 	}
 	
 	@Override
@@ -55,11 +75,11 @@ public abstract class AbstractSpell implements ISpell {
 	@Override
 	public long getCooldownInMilliseconds(){
 		
-		if (getMetadataValueOrNONEIfNotPresent(SpellMetadataConstants.KEY_COOLDOWN_MILLIS) != SpellMetadataConstants.NONE){
-			return Long.parseLong(getMetadataValueOrNONEIfNotPresent(SpellMetadataConstants.KEY_COOLDOWN_MILLIS));
+		if (getMetadataValueOrNONEIfNotPresent(SpellMetadataConstants.KEY_COOLDOWN_MILLIS).equals(SpellMetadataConstants.NONE)){
+			return MinecraftPythonMod.SCRIPT_RUN_COOLDOWN;
 		}
 		else{
-			return MinecraftPythonMod.SCRIPT_RUN_COOLDOWN;
+			return Long.parseLong(getMetadataValueOrNONEIfNotPresent(SpellMetadataConstants.KEY_COOLDOWN_MILLIS));
 		}
 	}
 
