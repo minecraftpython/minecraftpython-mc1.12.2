@@ -74,16 +74,39 @@ public class BasicMagicItem {
     protected void deductCastingCost(EntityPlayer spellcaster) {
         if (this.storedSpell.getConsumedExperiencePoints() > 0) {
             spellcaster.addExperience(-this.storedSpell.getConsumedExperiencePoints());
+        } else if (this.storedSpell.getConsumedExperienceLevels() > 0) {
+            spellcaster.addExperienceLevel(-this.getStoredSpell().getConsumedExperienceLevels());
         }
-        else if(this.storedSpell.getConsumedExperienceLevels() > 0){
-        	spellcaster.addExperienceLevel(-this.getStoredSpell().getConsumedExperienceLevels());
-		}
     }
 
     protected boolean hasEnoughExperienceToUse(EntityPlayer player) {
-        return player.experienceLevel >= this.storedSpell.getRequiredExperienceLevels() &&
-				player.experienceLevel >= this.storedSpell.getConsumedExperienceLevels() &&
-                player.experienceTotal >= this.storedSpell.getConsumedExperiencePoints();
+        return meetsMinima(player) && canPayCost(player);
+    }
+
+    protected boolean canPayCost(EntityPlayer player){
+        int pointCost = this.storedSpell.getConsumedExperiencePoints();
+        int levelCost = this.storedSpell.getConsumedExperienceLevels();
+        if(pointCost == 0 && levelCost == 0){
+            return true;
+        }else if(pointCost != 0){
+            return player.experienceTotal >= pointCost;
+        }else{
+            return player.experienceLevel >= levelCost;
+
+        }
+    }
+
+    protected boolean meetsMinima(EntityPlayer player){
+        int pointMin = this.storedSpell.getRequiredExperiencePoints();
+        int levelMin = this.storedSpell.getRequiredExperienceLevels();
+        if(pointMin == 0 && levelMin == 0){
+            return true;
+        }else if(pointMin != 0){
+            return player.experienceTotal >= pointMin;
+        }else{
+            return player.experienceLevel >= levelMin;
+
+        }
     }
 
     protected synchronized void castStoredSpell() {
