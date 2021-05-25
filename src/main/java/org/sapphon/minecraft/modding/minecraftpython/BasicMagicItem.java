@@ -6,6 +6,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagInt;
 import net.minecraft.nbt.NBTTagLong;
 import net.minecraft.nbt.NBTTagString;
+import net.minecraft.util.text.TextComponentString;
 import org.sapphon.minecraft.modding.minecraftpython.async.SpellCastingRunnable;
 import org.sapphon.minecraft.modding.minecraftpython.async.ThreadFactory;
 import org.sapphon.minecraft.modding.minecraftpython.interpreter.SpellInterpreter;
@@ -64,10 +65,21 @@ public class BasicMagicItem {
     }
 
     public void attemptMagic(EntityPlayer spellcaster) {
-        if (hasEnoughExperienceToUse(spellcaster) && timer() > storedSpell.getCooldownInMilliseconds()) {
-            doMagic();
-            deductCastingCost(spellcaster);
-            lastCast = System.currentTimeMillis();
+        if (meetsMinima(spellcaster)) {
+            if (canPayCost(spellcaster)) {
+                if (timer() > storedSpell.getCooldownInMilliseconds()) {
+                    doMagic();
+                    deductCastingCost(spellcaster);
+                    lastCast = System.currentTimeMillis();
+                } else {
+                    spellcaster.sendMessage(new TextComponentString("Cooldown not finished."));
+                }
+            }
+            else{
+                spellcaster.sendMessage(new TextComponentString("Not enough experience to pay the casting cost."));
+            }
+        }else{
+            spellcaster.sendMessage(new TextComponentString("Not enough experience to know how to use this."));
         }
     }
 
