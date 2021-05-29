@@ -7,6 +7,7 @@ import net.minecraft.nbt.NBTTagInt;
 import net.minecraft.nbt.NBTTagLong;
 import net.minecraft.nbt.NBTTagString;
 import net.minecraft.util.text.TextComponentString;
+import org.sapphon.minecraft.modding.mcutil.PlayerHelper;
 import org.sapphon.minecraft.modding.minecraftpython.async.SpellCastingRunnable;
 import org.sapphon.minecraft.modding.minecraftpython.async.ThreadFactory;
 import org.sapphon.minecraft.modding.minecraftpython.interpreter.SpellInterpreter;
@@ -68,54 +69,58 @@ public class BasicMagicItem {
         if (meetsMinima(spellcaster)) {
             if (canPayCost(spellcaster)) {
                 if (timer() > storedSpell.getCooldownInMilliseconds()) {
-                    doMagic();
                     deductCastingCost(spellcaster);
+                    doMagic();
                     lastCast = System.currentTimeMillis();
                 } else {
                     spellcaster.sendMessage(new TextComponentString("Cooldown not finished."));
                 }
-            }
-            else{
+            } else {
                 spellcaster.sendMessage(new TextComponentString("Not enough experience to pay the casting cost."));
             }
-        }else{
+        } else {
             spellcaster.sendMessage(new TextComponentString("Not enough experience to know how to use this."));
         }
     }
 
     protected void deductCastingCost(EntityPlayer spellcaster) {
-        if (this.storedSpell.getConsumedExperiencePoints() > 0) {
-            spellcaster.addExperience(-this.storedSpell.getConsumedExperiencePoints());
-        } else if (this.storedSpell.getConsumedExperienceLevels() > 0) {
-            spellcaster.addExperienceLevel(-this.getStoredSpell().getConsumedExperienceLevels());
+        int consumedExperiencePoints = this.storedSpell.getConsumedExperiencePoints();
+        int consumedExperienceLevels = this.storedSpell.getConsumedExperienceLevels();
+
+        if (consumedExperiencePoints > 0) {
+            int availableToDeduct = (int) (spellcaster.experience * spellcaster.xpBarCap());
+            while (availableToDeduct < consumedExperiencePoints) {
+                spellcaster.addExperienceLevel(-1);
+                availableToDeduct += spellcaster.xpBarCap();
+            }
+            int remainder = availableToDeduct - consumedExperiencePoints;
+            spellcaster.experience = remainder / (float)spellcaster.xpBarCap();
+        } else if (consumedExperienceLevels > 0) {
+            spellcaster.addExperienceLevel(-consumedExperienceLevels);
         }
     }
 
-    protected boolean hasEnoughExperienceToUse(EntityPlayer player) {
-        return meetsMinima(player) && canPayCost(player);
-    }
-
-    protected boolean canPayCost(EntityPlayer player){
+    protected boolean canPayCost(EntityPlayer player) {
         int pointCost = this.storedSpell.getConsumedExperiencePoints();
         int levelCost = this.storedSpell.getConsumedExperienceLevels();
-        if(pointCost == 0 && levelCost == 0){
+        if (pointCost == 0 && levelCost == 0) {
             return true;
-        }else if(pointCost != 0){
-            return player.experienceTotal >= pointCost;
-        }else{
+        } else if (pointCost != 0) {
+            return PlayerHelper.canPayExperiencePointCost(player, pointCost);
+        } else {
             return player.experienceLevel >= levelCost;
 
         }
     }
 
-    protected boolean meetsMinima(EntityPlayer player){
+    protected boolean meetsMinima(EntityPlayer player) {
         int pointMin = this.storedSpell.getRequiredExperiencePoints();
         int levelMin = this.storedSpell.getRequiredExperienceLevels();
-        if(pointMin == 0 && levelMin == 0){
+        if (pointMin == 0 && levelMin == 0) {
             return true;
-        }else if(pointMin != 0){
-            return player.experienceTotal >= pointMin;
-        }else{
+        } else if (pointMin != 0) {
+            return PlayerHelper.canPayExperiencePointCost(player, pointMin);
+        } else {
             return player.experienceLevel >= levelMin;
 
         }
