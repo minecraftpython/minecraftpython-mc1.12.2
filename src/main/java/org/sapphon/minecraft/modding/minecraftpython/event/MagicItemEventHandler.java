@@ -48,7 +48,7 @@ public class MagicItemEventHandler {
             }
             if (item.getTagCompound().hasKey(SpellMetadataConstants.KEY_REQUIRED_EXPERIENCE_LEVEL) &&
                     item.getTagCompound().getInteger(SpellMetadataConstants.KEY_REQUIRED_EXPERIENCE_LEVEL) > 0) {
-                event.getToolTip().add("Costs " + item.getTagCompound().getInteger(SpellMetadataConstants.KEY_REQUIRED_EXPERIENCE_LEVEL) + " XP Levels to Use");
+                event.getToolTip().add("Requires " + item.getTagCompound().getInteger(SpellMetadataConstants.KEY_REQUIRED_EXPERIENCE_LEVEL) + " XP Levels to Use");
             }
         }
     }
