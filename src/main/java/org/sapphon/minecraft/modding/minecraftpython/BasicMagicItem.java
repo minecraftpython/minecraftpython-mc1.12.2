@@ -42,6 +42,9 @@ public class BasicMagicItem {
 
     private void setWandRequiredExperience(ItemStack toCostify) {
         toCostify.setTagInfo(SpellMetadataConstants.KEY_REQUIRED_EXPERIENCE_LEVEL, new NBTTagInt(getStoredSpell().getRequiredExperienceLevels()));
+        toCostify.setTagInfo(SpellMetadataConstants.KEY_REQUIRED_EXPERIENCE_POINTS, new NBTTagInt(getStoredSpell().getRequiredExperiencePoints()));
+        toCostify.setTagInfo(SpellMetadataConstants.KEY_CONSUMED_EXPERIENCE_LEVELS, new NBTTagInt(getStoredSpell().getConsumedExperienceLevels()));
+        toCostify.setTagInfo(SpellMetadataConstants.KEY_CONSUMED_EXPERIENCE_POINTS, new NBTTagInt(getStoredSpell().getConsumedExperiencePoints()));
     }
 
     private void setWandCooldown(ItemStack toCooldownify) {
