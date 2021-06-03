@@ -16,10 +16,12 @@ import org.sapphon.minecraft.modding.minecraftpython.event.MagicItemEventHandler
 import org.sapphon.minecraft.modding.minecraftpython.event.MinecraftPythonKeyHandler;
 import org.sapphon.minecraft.modding.minecraftpython.io.file.MinecraftPythonScriptLoader;
 import org.sapphon.minecraft.modding.minecraftpython.io.file.ScriptLoaderConstants;
-import org.sapphon.minecraft.modding.minecraftpython.network.PacketHandlerMinecraftPythonClientCommand;
-import org.sapphon.minecraft.modding.minecraftpython.network.PacketHandlerMinecraftPythonServerCommand;
-import org.sapphon.minecraft.modding.minecraftpython.network.PacketMinecraftPythonClientCommand;
-import org.sapphon.minecraft.modding.minecraftpython.network.PacketMinecraftPythonServerCommand;
+import org.sapphon.minecraft.modding.minecraftpython.network.meta.PacketHandlerMinecraftPythonMeta;
+import org.sapphon.minecraft.modding.minecraftpython.network.meta.PacketMinecraftPythonDeductExperience;
+import org.sapphon.minecraft.modding.minecraftpython.network.python.PacketHandlerMinecraftPythonClientCommand;
+import org.sapphon.minecraft.modding.minecraftpython.network.python.PacketHandlerMinecraftPythonServerCommand;
+import org.sapphon.minecraft.modding.minecraftpython.network.python.PacketMinecraftPythonClientCommand;
+import org.sapphon.minecraft.modding.minecraftpython.network.python.PacketMinecraftPythonServerCommand;
 import org.sapphon.minecraft.modding.minecraftpython.proxy.ClientProxy;
 import org.sapphon.minecraft.modding.minecraftpython.proxy.CommonProxy;
 import org.sapphon.minecraft.modding.minecraftpython.proxy.DedicatedServerProxy;
@@ -42,6 +44,7 @@ public class MinecraftPythonMod {
     public static CommonProxy proxy;
     public static SimpleNetworkWrapper serverCommandPacketChannel;
     public static SimpleNetworkWrapper clientCommandPacketChannel;
+    public static SimpleNetworkWrapper serverMetaPacketChannel;
 
     @Mod.EventHandler
     public void preInit(FMLPreInitializationEvent event) {
@@ -49,17 +52,30 @@ public class MinecraftPythonMod {
             if (!ScriptLoaderConstants.resourcePathExists()) {
                 ScriptLoaderConstants.setResourcePath(event);
             }
-            serverCommandPacketChannel = NetworkRegistry.INSTANCE
-                    .newSimpleChannel("MPServerCommand");
-            serverCommandPacketChannel.registerMessage(
-                    PacketHandlerMinecraftPythonServerCommand.class,
-                    PacketMinecraftPythonServerCommand.class, 0, Side.SERVER);
-            clientCommandPacketChannel = NetworkRegistry.INSTANCE
-                    .newSimpleChannel("MPClientCommand");
-            clientCommandPacketChannel.registerMessage(
-                    PacketHandlerMinecraftPythonClientCommand.class,
-                    PacketMinecraftPythonClientCommand.class, 0, Side.CLIENT);
+            registerMetaPacketChannels();
+            registerPythonCommandPacketChannels();
         }
+    }
+
+    private void registerPythonCommandPacketChannels() {
+        serverCommandPacketChannel = NetworkRegistry.INSTANCE
+                .newSimpleChannel("MPServerCommand");
+        serverCommandPacketChannel.registerMessage(
+                PacketHandlerMinecraftPythonServerCommand.class,
+                PacketMinecraftPythonServerCommand.class, 0, Side.SERVER);
+        clientCommandPacketChannel = NetworkRegistry.INSTANCE
+                .newSimpleChannel("MPClientCommand");
+        clientCommandPacketChannel.registerMessage(
+                PacketHandlerMinecraftPythonClientCommand.class,
+                PacketMinecraftPythonClientCommand.class, 0, Side.CLIENT);
+    }
+
+    private void registerMetaPacketChannels() {
+        serverMetaPacketChannel = NetworkRegistry.INSTANCE
+                .newSimpleChannel("MPServerMeta");
+        serverMetaPacketChannel.registerMessage(
+                PacketHandlerMinecraftPythonMeta.class,
+                PacketMinecraftPythonDeductExperience.class, 0, Side.SERVER);
     }
 
     private boolean isEnabled() {

@@ -4,7 +4,7 @@ import org.sapphon.minecraft.modding.minecraftpython.MinecraftPythonMod;
 import org.sapphon.minecraft.modding.minecraftpython.command.CommandMinecraftPythonClient;
 import org.sapphon.minecraft.modding.minecraftpython.command.CommandMinecraftPythonServer;
 import org.sapphon.minecraft.modding.minecraftpython.command.ICommand;
-import org.sapphon.minecraft.modding.minecraftpython.network.PacketMinecraftPythonClientCommand;
+import org.sapphon.minecraft.modding.minecraftpython.network.python.PacketMinecraftPythonClientCommand;
 
 import java.util.ArrayList;
 

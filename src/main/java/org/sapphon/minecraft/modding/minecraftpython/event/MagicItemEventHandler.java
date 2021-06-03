@@ -1,9 +1,18 @@
 package org.sapphon.minecraft.modding.minecraftpython.event;
 
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.EnumActionResult;
+import net.minecraft.util.text.TextComponentString;
+import net.minecraftforge.event.entity.item.ItemEvent;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
+import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
+import net.minecraftforge.fml.common.eventhandler.Event;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
+import org.sapphon.minecraft.modding.mcutil.PlayerHelper;
 import org.sapphon.minecraft.modding.minecraftpython.BasicMagicItem;
 import org.sapphon.minecraft.modding.minecraftpython.ModConfigurationFlags;
 import org.sapphon.minecraft.modding.minecraftpython.factory.MagicItemFactory;
@@ -23,8 +32,7 @@ public class MagicItemEventHandler {
     @SubscribeEvent
     public void HandleRightClickMagicWandEvent(PlayerInteractEvent.RightClickItem event) {
         ItemStack rightClickedStack = event.getItemStack();
-
-        if (event.getSide().isClient() && ModConfigurationFlags.WAND_USE() && BasicMagicItem.isMagicWand(rightClickedStack)) {
+        if (PlayerHelper.isOnLogicalClient(event.getEntityPlayer()) && ModConfigurationFlags.WAND_USE() && BasicMagicItem.isMagicWand(rightClickedStack)) {
             if (magicItems.containsKey(rightClickedStack)) {
                 magicItems.get(rightClickedStack).attemptMagic(event.getEntityPlayer());
             } else {
@@ -34,6 +42,8 @@ public class MagicItemEventHandler {
                 newMagicItem.attemptMagic(event.getEntityPlayer());
             }
             event.setCanceled(true);
+            event.setResult(Event.Result.DENY);
+            event.setCancellationResult(EnumActionResult.FAIL);
         }
     }
 
@@ -60,16 +70,16 @@ public class MagicItemEventHandler {
                 item.getTagCompound().getInteger(SpellMetadataConstants.KEY_REQUIRED_EXPERIENCE_LEVEL) > 0) {
             event.getToolTip().add(buildConstraintTooltip(false, false, item.getTagCompound().getInteger(SpellMetadataConstants.KEY_REQUIRED_EXPERIENCE_LEVEL)));
         }
-        if(item.getTagCompound().hasKey(SpellMetadataConstants.KEY_CONSUMED_EXPERIENCE_POINTS) &&
-                item.getTagCompound().getInteger(SpellMetadataConstants.KEY_CONSUMED_EXPERIENCE_POINTS) > 0){
+        if (item.getTagCompound().hasKey(SpellMetadataConstants.KEY_CONSUMED_EXPERIENCE_POINTS) &&
+                item.getTagCompound().getInteger(SpellMetadataConstants.KEY_CONSUMED_EXPERIENCE_POINTS) > 0) {
             event.getToolTip().add(buildConstraintTooltip(true, true, item.getTagCompound().getInteger(SpellMetadataConstants.KEY_CONSUMED_EXPERIENCE_POINTS)));
-        }else if(item.getTagCompound().hasKey(SpellMetadataConstants.KEY_CONSUMED_EXPERIENCE_LEVELS) &&
-                item.getTagCompound().getInteger(SpellMetadataConstants.KEY_CONSUMED_EXPERIENCE_LEVELS) > 0){
+        } else if (item.getTagCompound().hasKey(SpellMetadataConstants.KEY_CONSUMED_EXPERIENCE_LEVELS) &&
+                item.getTagCompound().getInteger(SpellMetadataConstants.KEY_CONSUMED_EXPERIENCE_LEVELS) > 0) {
             event.getToolTip().add(buildConstraintTooltip(true, false, item.getTagCompound().getInteger(SpellMetadataConstants.KEY_CONSUMED_EXPERIENCE_LEVELS)));
         }
     }
 
-    protected String buildConstraintTooltip(boolean isPermanentCost, boolean isXpPoints, int costOrMinimum){
-        return (isPermanentCost ? "Costs ": "Requires ") + costOrMinimum + (isXpPoints ? " Experience Points" : " Levels") +  " To Use";
+    protected String buildConstraintTooltip(boolean isPermanentCost, boolean isXpPoints, int costOrMinimum) {
+        return (isPermanentCost ? "Costs " : "Requires ") + costOrMinimum + (isXpPoints ? " Experience Points" : " Levels") + " To Use";
     }
 }

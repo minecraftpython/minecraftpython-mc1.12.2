@@ -1,4 +1,4 @@
-package org.sapphon.minecraft.modding.minecraftpython.network;
+package org.sapphon.minecraft.modding.minecraftpython.network.python;
 
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;

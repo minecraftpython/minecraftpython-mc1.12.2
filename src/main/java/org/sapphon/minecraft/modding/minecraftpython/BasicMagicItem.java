@@ -12,8 +12,11 @@ import org.sapphon.minecraft.modding.minecraftpython.async.SpellCastingRunnable;
 import org.sapphon.minecraft.modding.minecraftpython.async.ThreadFactory;
 import org.sapphon.minecraft.modding.minecraftpython.interpreter.SpellInterpreter;
 import org.sapphon.minecraft.modding.minecraftpython.io.file.MinecraftPythonScriptLoader;
+import org.sapphon.minecraft.modding.minecraftpython.network.meta.PacketMinecraftPythonDeductExperience;
 import org.sapphon.minecraft.modding.minecraftpython.spells.ISpell;
 import org.sapphon.minecraft.modding.minecraftpython.spells.metadata.SpellMetadataConstants;
+
+import static org.sapphon.minecraft.modding.mcutil.PlayerHelper.logToPlayer;
 
 public class BasicMagicItem {
     private ISpell storedSpell;
@@ -73,16 +76,16 @@ public class BasicMagicItem {
             if (canPayCost(spellcaster)) {
                 if (timer() > storedSpell.getCooldownInMilliseconds()) {
                     deductCastingCost(spellcaster);
-                    doMagic();
+                    this.doMagic();
                     lastCast = System.currentTimeMillis();
                 } else {
-                    spellcaster.sendMessage(new TextComponentString("Cooldown not finished."));
+                    logToPlayer(spellcaster, "Cooldown not finished");
                 }
             } else {
-                spellcaster.sendMessage(new TextComponentString("Not enough experience to pay the casting cost."));
+                logToPlayer(spellcaster, "Not enough experience to pay the casting cost.");
             }
         } else {
-            spellcaster.sendMessage(new TextComponentString("Not enough experience to know how to use this."));
+            logToPlayer(spellcaster, "Not enough experience to know how to use this.");
         }
     }
 
@@ -91,15 +94,9 @@ public class BasicMagicItem {
         int consumedExperienceLevels = this.storedSpell.getConsumedExperienceLevels();
 
         if (consumedExperiencePoints > 0) {
-            int availableToDeduct = (int) (spellcaster.experience * spellcaster.xpBarCap());
-            while (availableToDeduct < consumedExperiencePoints) {
-                spellcaster.addExperienceLevel(-1);
-                availableToDeduct += spellcaster.xpBarCap();
-            }
-            int remainder = availableToDeduct - consumedExperiencePoints;
-            spellcaster.experience = remainder / (float)spellcaster.xpBarCap();
+            MinecraftPythonMod.serverMetaPacketChannel.sendToServer(new PacketMinecraftPythonDeductExperience(consumedExperiencePoints, false));
         } else if (consumedExperienceLevels > 0) {
-            spellcaster.addExperienceLevel(-consumedExperienceLevels);
+            MinecraftPythonMod.serverMetaPacketChannel.sendToServer(new PacketMinecraftPythonDeductExperience(consumedExperienceLevels, true));
         }
     }
 

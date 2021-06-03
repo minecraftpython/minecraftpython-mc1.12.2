@@ -1,11 +1,11 @@
-package org.sapphon.minecraft.modding.minecraftpython.network;
+package org.sapphon.minecraft.modding.minecraftpython.network.python;
 
 import io.netty.buffer.ByteBuf;
 import net.minecraftforge.fml.common.network.ByteBufUtils;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import org.sapphon.minecraft.modding.minecraftpython.command.*;
 import org.sapphon.minecraft.modding.minecraftpython.problemhandlers.JavaProblemHandler;
-//TODO this whole class requires a re-factor to be at all data-driven.  Right now everything is minimally automated and honestly kinda questionable technically
+
 public class PacketMinecraftPythonServerCommand implements IMessage {
 	
 
@@ -48,7 +48,7 @@ public class PacketMinecraftPythonServerCommand implements IMessage {
 		}else if(commandName.equals(CommandMinecraftPythonServer.SPAWNITEM_NAME)){
 			command = new CommandMPSpawnItem(commandAndArgsToDeserialize);
 		}else if(commandName.equals(CommandMinecraftPythonServer.CONSOLECOMMAND_NAME)){
-			command = new CommandMPExecuteConsoleCommand(commandAndArgsToDeserialize);	//TODO oops 1.8
+			command = new CommandMPExecuteConsoleCommand(commandAndArgsToDeserialize);
 		}
 		else {
 			JavaProblemHandler.printErrorMessageToDialogBox(new Exception(

@@ -1,4 +1,4 @@
-package org.sapphon.minecraft.modding.minecraftpython.network;
+package org.sapphon.minecraft.modding.minecraftpython.network.python;
 
 import io.netty.buffer.ByteBuf;
 import net.minecraftforge.fml.common.network.ByteBufUtils;
