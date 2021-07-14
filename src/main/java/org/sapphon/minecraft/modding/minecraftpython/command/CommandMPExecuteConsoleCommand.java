@@ -128,7 +128,6 @@ public class CommandMPExecuteConsoleCommand extends
 				
 	@Override
 	public String serialize() {
-		//TODO this will never work if it ever needs to, commands must certainly contain commas sometimes...?
 		return CONSOLECOMMAND_NAME + SERIAL_DIV + commandString + SERIAL_DIV + playerName;
 	}
 }

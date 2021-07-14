@@ -2,9 +2,14 @@ package org.sapphon.minecraft.modding.mcutil;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.text.TextComponentString;
 
 public class PlayerHelper {
+    public static EntityPlayerMP getPlayerByUsernameOrNull(MinecraftServer serverToSearch, String playerName){
+        return serverToSearch.getPlayerList().getPlayerByUsername(playerName);
+    }
+
     public static boolean canPayExperiencePointCost(EntityPlayer player, int cost) {
         int availableToDeduct = (int) (player.experience * player.xpBarCap());
         int levelsBorrowed = 0;

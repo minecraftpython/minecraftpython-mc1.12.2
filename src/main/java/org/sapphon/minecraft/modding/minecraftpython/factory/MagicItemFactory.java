@@ -1,6 +1,6 @@
 package org.sapphon.minecraft.modding.minecraftpython.factory;
 
-import org.sapphon.minecraft.modding.minecraftpython.BasicMagicItem;
+import org.sapphon.minecraft.modding.minecraftpython.item.BasicMagicItem;
 import org.sapphon.minecraft.modding.minecraftpython.spells.ISpell;
 
 public class MagicItemFactory {

@@ -6,7 +6,8 @@ import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.InputEvent;
 import org.lwjgl.input.Keyboard;
-import org.sapphon.minecraft.modding.minecraftpython.BasicMagicItem;
+import org.sapphon.minecraft.modding.minecraftpython.command.CommandMPEnsorcelItem;
+import org.sapphon.minecraft.modding.minecraftpython.item.BasicMagicItem;
 import org.sapphon.minecraft.modding.minecraftpython.MinecraftPythonMod;
 import org.sapphon.minecraft.modding.minecraftpython.ModConfigurationFlags;
 
@@ -37,7 +38,7 @@ public class MinecraftPythonKeyHandler {
 		}
 		else if (ModConfigurationFlags.WAND_RECORDING() &&
 				keyBindings[RECORD_WAND_KEY_INDEX].isPressed()) {
-			device.recordOntoItem(Minecraft.getMinecraft().player.getHeldItemMainhand());
+			new CommandMPEnsorcelItem(Minecraft.getMinecraft().player.getName(), device.getStoredSpell().getPythonScriptAsString()).execute();
 		} else if (ModConfigurationFlags.WAND_READING() &&
 			keyBindings[READ_WAND_KEY_INDEX].isPressed()) {
 			device.readFromItem(Minecraft.getMinecraft().player.getHeldItemMainhand());

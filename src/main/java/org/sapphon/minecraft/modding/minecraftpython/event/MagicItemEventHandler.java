@@ -1,22 +1,17 @@
 package org.sapphon.minecraft.modding.minecraftpython.event;
 
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumActionResult;
-import net.minecraft.util.text.TextComponentString;
-import net.minecraftforge.event.entity.item.ItemEvent;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
-import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.fml.common.eventhandler.Event;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 import org.sapphon.minecraft.modding.mcutil.PlayerHelper;
-import org.sapphon.minecraft.modding.minecraftpython.BasicMagicItem;
+import org.sapphon.minecraft.modding.minecraftpython.item.BasicMagicItem;
 import org.sapphon.minecraft.modding.minecraftpython.ModConfigurationFlags;
 import org.sapphon.minecraft.modding.minecraftpython.factory.MagicItemFactory;
 import org.sapphon.minecraft.modding.minecraftpython.factory.SpellFactory;
+import org.sapphon.minecraft.modding.minecraftpython.item.WandReaderWriter;
 import org.sapphon.minecraft.modding.minecraftpython.spells.metadata.SpellMetadataConstants;
 
 import java.util.LinkedHashMap;
@@ -32,7 +27,7 @@ public class MagicItemEventHandler {
     @SubscribeEvent
     public void HandleRightClickMagicWandEvent(PlayerInteractEvent.RightClickItem event) {
         ItemStack rightClickedStack = event.getItemStack();
-        if (PlayerHelper.isOnLogicalClient(event.getEntityPlayer()) && ModConfigurationFlags.WAND_USE() && BasicMagicItem.isMagicWand(rightClickedStack)) {
+        if (PlayerHelper.isOnLogicalClient(event.getEntityPlayer()) && ModConfigurationFlags.WAND_USE() && WandReaderWriter.isMagicWand(rightClickedStack)) {
             if (magicItems.containsKey(rightClickedStack)) {
                 magicItems.get(rightClickedStack).attemptMagic(event.getEntityPlayer());
             } else {
@@ -50,7 +45,7 @@ public class MagicItemEventHandler {
     @SubscribeEvent
     public void onTooltip(ItemTooltipEvent event) {
         ItemStack item = event.getItemStack();
-        if (BasicMagicItem.isMagicWand(item) && item.getTagCompound() != null) {
+        if (WandReaderWriter.isMagicWand(item) && item.getTagCompound() != null) {
             if (item.getTagCompound().hasKey(SpellMetadataConstants.KEY_COOLDOWN_MILLIS)) {
                 event.getToolTip().add("Cooldown: " + item.getTagCompound().getLong(SpellMetadataConstants.KEY_COOLDOWN_MILLIS));
             }

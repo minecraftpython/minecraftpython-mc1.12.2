@@ -1,8 +1,7 @@
 package org.sapphon.minecraft.modding.minecraftpython.io.file;
 
-import org.sapphon.minecraft.modding.minecraftpython.BasicMagicItem;
+import org.sapphon.minecraft.modding.minecraftpython.item.BasicMagicItem;
 import org.sapphon.minecraft.modding.minecraftpython.factory.MagicItemFactory;
-import org.sapphon.minecraft.modding.minecraftpython.problemhandlers.PythonProblemHandler;
 import org.sapphon.minecraft.modding.minecraftpython.factory.SpellFactory;
 
 import java.io.File;

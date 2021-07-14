@@ -12,6 +12,7 @@ public abstract class CommandMinecraftPythonServer extends CommandMinecraftPytho
 	public static final String PROPEL_NAME = "pr";
 	public static final String SPAWNITEM_NAME = "si";
 	public static final String CONSOLECOMMAND_NAME = "cc";
+	public static final String ENSORCEL_ITEM_NAME = "ei";
 	
 	public abstract String serialize() ;
 	
