@@ -48,13 +48,13 @@ public class MinecraftPythonMod {
 
     @Mod.EventHandler
     public void preInit(FMLPreInitializationEvent event) {
-        if (isEnabled()) {
+        if (isEnabled() && !(proxy instanceof DedicatedServerProxy)) {
             if (!ScriptLoaderConstants.resourcePathExists()) {
                 ScriptLoaderConstants.setResourcePath(event);
             }
+        }
             registerMetaPacketChannels();
             registerPythonCommandPacketChannels();
-        }
     }
 
     private void registerPythonCommandPacketChannels() {
@@ -89,8 +89,8 @@ public class MinecraftPythonMod {
                     new MinecraftPythonKeyHandler(
                             MinecraftPythonScriptLoader.SINGLETON()
                                     .getMagicVessel()));
+            MinecraftForge.EVENT_BUS.register(new MagicItemEventHandler());
         }
-        MinecraftForge.EVENT_BUS.register(new MagicItemEventHandler());
         proxy.registerRenderers();
     }
 
