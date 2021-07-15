@@ -17,106 +17,106 @@ import java.util.Map;
 
 public class EntityLookup {
 
-	private static Map<String, Class> entityNameToClassMap = new HashMap<String, Class>() {
-		{
-			put("pig", EntityPig.class);
-			put("skeleton", EntitySkeleton.class);
-			put("horse", EntityHorse.class);
-			put("creeper", EntityCreeper.class);
-			put("cow", EntityCow.class);
-			put("chicken", EntityChicken.class);
-			put("bat", EntityBat.class);
-			put("arrow", EntityTippedArrow.class);
-			put("boat", EntityBoat.class);
-			put("endercrystal", EntityEnderCrystal.class);
-			put("largefireball", EntityLargeFireball.class);
-			put("smallfireball", EntitySmallFireball.class);
-			put("witherskull", EntityWitherSkull.class);
-			put("fireworkrocket", EntityFireworkRocket.class);
-			put("snowball", EntitySnowball.class);
-			put("egg", EntityEgg.class);
-			put("xporb", EntityXPOrb.class);
-			put("minecart_tnt", EntityMinecartTNT.class);
-			put("blaze", EntityBlaze.class);
-			put("wolf", EntityWolf.class);
-			put("ghast", EntityGhast.class);
-			put("spider", EntitySpider.class);
-			put("witch", EntityWitch.class);
-			put("iron_golem", EntityIronGolem.class);
-			put("zombie", EntityZombie.class);
-			put("squid", EntitySquid.class);
-			put("silverfish", EntitySilverfish.class);
-			put("slime", EntitySlime.class);
-			put("witherboss", EntityWither.class);
-			put("enderdragon", EntityDragon.class);
-			put("ocelot", EntityOcelot.class);
-			put("zombiepigman", EntityPigZombie.class);
-			put("enderman", EntityEnderman.class);
-			put("magmacube", EntityMagmaCube.class);
-			put("sheep", EntitySheep.class);
-			put("player", EntityPlayer.class);
-		}
-	};
+    private static Map<String, Class> entityNameToClassMap = new HashMap<String, Class>() {
+        {
+            put("pig", EntityPig.class);
+            put("skeleton", EntitySkeleton.class);
+            put("horse", EntityHorse.class);
+            put("creeper", EntityCreeper.class);
+            put("cow", EntityCow.class);
+            put("chicken", EntityChicken.class);
+            put("bat", EntityBat.class);
+            put("arrow", EntityTippedArrow.class);
+            put("boat", EntityBoat.class);
+            put("endercrystal", EntityEnderCrystal.class);
+            put("largefireball", EntityLargeFireball.class);
+            put("smallfireball", EntitySmallFireball.class);
+            put("witherskull", EntityWitherSkull.class);
+            put("fireworkrocket", EntityFireworkRocket.class);
+            put("snowball", EntitySnowball.class);
+            put("egg", EntityEgg.class);
+            put("xporb", EntityXPOrb.class);
+            put("minecart_tnt", EntityMinecartTNT.class);
+            put("blaze", EntityBlaze.class);
+            put("wolf", EntityWolf.class);
+            put("ghast", EntityGhast.class);
+            put("spider", EntitySpider.class);
+            put("witch", EntityWitch.class);
+            put("iron_golem", EntityIronGolem.class);
+            put("zombie", EntityZombie.class);
+            put("squid", EntitySquid.class);
+            put("silverfish", EntitySilverfish.class);
+            put("slime", EntitySlime.class);
+            put("witherboss", EntityWither.class);
+            put("enderdragon", EntityDragon.class);
+            put("ocelot", EntityOcelot.class);
+            put("zombiepigman", EntityPigZombie.class);
+            put("enderman", EntityEnderman.class);
+            put("magmacube", EntityMagmaCube.class);
+            put("sheep", EntitySheep.class);
+            put("player", EntityPlayer.class);
+        }
+    };
 
-	public static Class getPlayerClass() {
-		return EntityPlayer.class;
-	}
+    public static Class getPlayerClass() {
+        return EntityPlayer.class;
+    }
 
-	private static Map<Class, String> classToEntityNameMap = new HashMap<Class, String>() {
-		{
-			for (String name : entityNameToClassMap.keySet()) {
-				put(entityNameToClassMap.get(name), name);
-			}
-		}
-	};
+    private static Map<Class, String> classToEntityNameMap = new HashMap<Class, String>() {
+        {
+            for (String name : entityNameToClassMap.keySet()) {
+                put(entityNameToClassMap.get(name), name);
+            }
+        }
+    };
 
-	public static Class getEntityClassByName(String name) {
-		if (entityNameToClassMap.containsKey(name.toLowerCase())) {
+    public static Class getEntityClassByName(String name) {
+        if (entityNameToClassMap.containsKey(name.toLowerCase())) {
 
-			Class entityClass = entityNameToClassMap.get(name.toLowerCase());
-			if (entityClass != null) {
-				return entityClass;
-			}
-		}
-		return EntityTNTPrimed.class;
-	}
+            Class entityClass = entityNameToClassMap.get(name.toLowerCase());
+            if (entityClass != null) {
+                return entityClass;
+            }
+        }
+        return EntityTNTPrimed.class;
+    }
 
-	public static Entity getEntityByName(String name, World worldserver) {
-		// first, check our static list of entity names
-		if (entityNameToClassMap.containsKey(name.toLowerCase())) {
+    public static Entity getEntityByName(String name, World worldserver) {
+        // first, check our static list of entity names
+        if (entityNameToClassMap.containsKey(name.toLowerCase())) {
 
-			Class entityClass = entityNameToClassMap.get(name.toLowerCase());
+            Class entityClass = entityNameToClassMap.get(name.toLowerCase());
 
-			try {
-				// TODO: THE BRITTLENESS IS UNBELIEVABLE
-				Constructor constructor = entityClass
-						.getConstructor(World.class);
-				Object entityToSpawn = constructor.newInstance(worldserver);
-				if (entityToSpawn instanceof EntityXPOrb) {// TODO HAX: had to
-															// add some xpValue
-															// to an xpOrb or it
-															// defaults to zero!
-					EntityXPOrb orb = (EntityXPOrb) entityToSpawn;
-					orb.xpValue = 5;
-					entityToSpawn = orb;
-				}
+            try {
+                // TODO: THE BRITTLENESS IS UNBELIEVABLE
+                Constructor constructor = entityClass
+                        .getConstructor(World.class);
+                Object entityToSpawn = constructor.newInstance(worldserver);
+                if (entityToSpawn instanceof EntityXPOrb) {// TODO HAX: had to
+                    // add some xpValue
+                    // to an xpOrb or it
+                    // defaults to zero!
+                    EntityXPOrb orb = (EntityXPOrb) entityToSpawn;
+                    orb.xpValue = 5;
+                    entityToSpawn = orb;
+                }
 
-				return (Entity) entityToSpawn;
+                return (Entity) entityToSpawn;
 
-			} catch (Exception e) {
-				JavaProblemHandler.printErrorMessageToDialogBox(e);
-			}
+            } catch (Exception e) {
+                JavaProblemHandler.printErrorMessageToDialogBox(e);
+            }
 
-		}
-		return new EntityTNTPrimed(worldserver);
-	}
+        }
+        return new EntityTNTPrimed(worldserver);
+    }
 
-	public static String getNameByEntity(Entity entity) {
-		Class<? extends Entity> classOfEntity = entity.getClass();
-		if (classToEntityNameMap.containsKey(classOfEntity)) {
-			return classToEntityNameMap.get(entity);
-		}
-		return "primed_tnt";
+    public static String getNameByEntity(Entity entity) {
+        Class<? extends Entity> classOfEntity = entity.getClass();
+        if (classToEntityNameMap.containsKey(classOfEntity)) {
+            return classToEntityNameMap.get(entity);
+        }
+        return "primed_tnt";
 
-	}
+    }
 }

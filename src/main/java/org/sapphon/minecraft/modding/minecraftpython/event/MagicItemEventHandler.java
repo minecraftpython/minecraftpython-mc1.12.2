@@ -7,10 +7,10 @@ import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.fml.common.eventhandler.Event;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import org.sapphon.minecraft.modding.mcutil.PlayerHelper;
-import org.sapphon.minecraft.modding.minecraftpython.item.BasicMagicItem;
 import org.sapphon.minecraft.modding.minecraftpython.ModConfigurationFlags;
 import org.sapphon.minecraft.modding.minecraftpython.factory.MagicItemFactory;
 import org.sapphon.minecraft.modding.minecraftpython.factory.SpellFactory;
+import org.sapphon.minecraft.modding.minecraftpython.item.BasicMagicItem;
 import org.sapphon.minecraft.modding.minecraftpython.item.WandReaderWriter;
 import org.sapphon.minecraft.modding.minecraftpython.spells.metadata.SpellMetadataConstants;
 

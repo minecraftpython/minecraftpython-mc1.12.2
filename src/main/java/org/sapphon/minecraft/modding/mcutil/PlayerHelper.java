@@ -6,7 +6,7 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.text.TextComponentString;
 
 public class PlayerHelper {
-    public static EntityPlayerMP getPlayerByUsernameOrNull(MinecraftServer serverToSearch, String playerName){
+    public static EntityPlayerMP getPlayerByUsernameOrNull(MinecraftServer serverToSearch, String playerName) {
         return serverToSearch.getPlayerList().getPlayerByUsername(playerName);
     }
 
@@ -17,7 +17,7 @@ public class PlayerHelper {
             if (player.experienceLevel < 1) {
                 player.addExperienceLevel(levelsBorrowed);
                 return false;
-            }else {
+            } else {
                 levelsBorrowed++;
                 player.addExperienceLevel(-1);
                 availableToDeduct += player.xpBarCap();
@@ -30,7 +30,7 @@ public class PlayerHelper {
     public static boolean deductExperiencePoints(EntityPlayer player, int cost) {
         int availableToDeduct = (int) (player.experience * player.xpBarCap());
         while (availableToDeduct < cost) {
-            if(player.experienceLevel < 1){
+            if (player.experienceLevel < 1) {
                 return false;
             }
             player.addExperienceLevel(-1);
@@ -38,15 +38,15 @@ public class PlayerHelper {
 
         }
         int remainder = availableToDeduct - cost;
-        player.experience = remainder / (float)player.xpBarCap();
+        player.experience = remainder / (float) player.xpBarCap();
         return true;
     }
 
-    public static boolean isOnLogicalServer(EntityPlayer player){
+    public static boolean isOnLogicalServer(EntityPlayer player) {
         return !isOnLogicalClient(player);
     }
 
-    public static boolean isOnLogicalClient(EntityPlayer player){
+    public static boolean isOnLogicalClient(EntityPlayer player) {
         return player.getEntityWorld().isRemote;
     }
 

@@ -3,23 +3,23 @@ package org.sapphon.minecraft.modding.minecraftpython.spells;
 import org.python.core.PyCode;
 import org.python.util.PythonInterpreter;
 
-import java.io.File;
-
 
 public interface ISpell {
-	public String getPythonScriptAsString();
+    public String getPythonScriptAsString();
 
-	public PyCode getCompiledPythonCode(PythonInterpreter interpreter);
+    public PyCode getCompiledPythonCode(PythonInterpreter interpreter);
 
-	public int getRequiredExperienceLevels();
-	public int getRequiredExperiencePoints();
+    public int getRequiredExperienceLevels();
 
-	public int getConsumedExperienceLevels();
-	public int getConsumedExperiencePoints();
-	
-	public String getAuthorName();
-	
-	public String getDisplayName();
+    public int getRequiredExperiencePoints();
 
-	public long getCooldownInMilliseconds();
+    public int getConsumedExperienceLevels();
+
+    public int getConsumedExperiencePoints();
+
+    public String getAuthorName();
+
+    public String getDisplayName();
+
+    public long getCooldownInMilliseconds();
 }

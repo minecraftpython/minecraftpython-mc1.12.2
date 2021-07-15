@@ -53,8 +53,8 @@ public class MinecraftPythonMod {
                 ScriptLoaderConstants.setResourcePath(event);
             }
         }
-            registerMetaPacketChannels();
-            registerPythonCommandPacketChannels();
+        registerMetaPacketChannels();
+        registerPythonCommandPacketChannels();
     }
 
     private void registerPythonCommandPacketChannels() {

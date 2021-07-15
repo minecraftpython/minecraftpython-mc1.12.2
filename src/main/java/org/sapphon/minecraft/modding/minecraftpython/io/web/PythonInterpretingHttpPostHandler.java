@@ -14,97 +14,94 @@ import java.util.StringTokenizer;
 
 public class PythonInterpretingHttpPostHandler extends Thread {
 
-	private static final String PYTHONPROGRAM_JSON_KEY = "pythonprogram";
+    private static final String PYTHONPROGRAM_JSON_KEY = "pythonprogram";
 
-	static final String HTML_START = "<html>"
-			+ "<title>HTTP POST Server in java</title>" + "<body>";
+    static final String HTML_START = "<html>"
+            + "<title>HTTP POST Server in java</title>" + "<body>";
 
-	static final String HTML_END = "</body>" + "</html>";
+    static final String HTML_END = "</body>" + "</html>";
 
-	static final String NEWLINE = "\r\n";
-	
-	Socket connectedClient = null;
-	BufferedReader inFromClient = null;
-	DataOutputStream outToClient = null;
+    static final String NEWLINE = "\r\n";
 
-	private SpellInterpreter interpreter;
+    Socket connectedClient = null;
+    BufferedReader inFromClient = null;
+    DataOutputStream outToClient = null;
 
-	public PythonInterpretingHttpPostHandler(Socket client, SpellInterpreter interpreter) {
-		connectedClient = client;
-		this.interpreter = interpreter;
-	}
+    private SpellInterpreter interpreter;
 
-	public void run() {
-		String wholeRequest = "";
-		try {
+    public PythonInterpretingHttpPostHandler(Socket client, SpellInterpreter interpreter) {
+        connectedClient = client;
+        this.interpreter = interpreter;
+    }
 
-			inFromClient = new BufferedReader(new InputStreamReader(
-					connectedClient.getInputStream()));
-			outToClient = new DataOutputStream(
-					connectedClient.getOutputStream());
+    public void run() {
+        String wholeRequest = "";
+        try {
 
-			String currentLine = inFromClient.readLine();
-			wholeRequest += currentLine + NEWLINE;
-			String headerLine = currentLine;
-			StringTokenizer tokenizer = new StringTokenizer(headerLine);
-			String httpMethod = tokenizer.nextToken();
-			System.out.println(httpMethod);
-			String httpQueryString = tokenizer.nextToken();
-			do {
-				currentLine = inFromClient.readLine();
-				if (currentLine == null){
-					break;
-				}
-				else{
-					wholeRequest += currentLine + NEWLINE;
-				}
-			} while (inFromClient.ready()); // End of do-while
-		} catch (Exception e) {
-			JavaProblemHandler.printErrorMessageToDialogBox(e);
-		} finally {
-			try {
-				sendResponse(200, "Spell received");
-			}catch(SocketException socketException){
-				String message = "Oops! Minecraft is busy, please wait a second! :-)"
-						+ "\n(A SocketException occurred.)";
-				
-				JavaProblemHandler.printErrorMessageToDialogBox(new Exception(message,socketException));
-			}
-			catch (Exception e) {
-				JavaProblemHandler.printErrorMessageToDialogBox(new Exception("Failed to parse incoming HTTP request containing spell.",e));
-			}
-		}
-		String requestBodyThatWeExpectIsJSON = wholeRequest.substring(
-				wholeRequest.indexOf("{\"")).trim();
-		JSONObject jsonObject = new JSONObject(requestBodyThatWeExpectIsJSON);
-		String program = jsonObject.getString(PYTHONPROGRAM_JSON_KEY);
-		this.interpreter.interpretPython(program);
-	}
+            inFromClient = new BufferedReader(new InputStreamReader(
+                    connectedClient.getInputStream()));
+            outToClient = new DataOutputStream(
+                    connectedClient.getOutputStream());
 
-	public void sendResponse(int statusCode, String responseString) throws Exception {
+            String currentLine = inFromClient.readLine();
+            wholeRequest += currentLine + NEWLINE;
+            String headerLine = currentLine;
+            StringTokenizer tokenizer = new StringTokenizer(headerLine);
+            String httpMethod = tokenizer.nextToken();
+            System.out.println(httpMethod);
+            String httpQueryString = tokenizer.nextToken();
+            do {
+                currentLine = inFromClient.readLine();
+                if (currentLine == null) {
+                    break;
+                } else {
+                    wholeRequest += currentLine + NEWLINE;
+                }
+            } while (inFromClient.ready()); // End of do-while
+        } catch (Exception e) {
+            JavaProblemHandler.printErrorMessageToDialogBox(e);
+        } finally {
+            try {
+                sendResponse(200, "Spell received");
+            } catch (SocketException socketException) {
+                String message = "Oops! Minecraft is busy, please wait a second! :-)"
+                        + "\n(A SocketException occurred.)";
 
-		String statusLine = null;
-		String serverdetails = "Server: Java HTTPServer";
-		String contentLengthLine = null;
-		String fileName = null;
-		
-		String contentTypeLine = "Content-Type: text/html" + NEWLINE;
-		FileInputStream fin = null;
+                JavaProblemHandler.printErrorMessageToDialogBox(new Exception(message, socketException));
+            } catch (Exception e) {
+                JavaProblemHandler.printErrorMessageToDialogBox(new Exception("Failed to parse incoming HTTP request containing spell.", e));
+            }
+        }
+        String requestBodyThatWeExpectIsJSON = wholeRequest.substring(
+                wholeRequest.indexOf("{\"")).trim();
+        JSONObject jsonObject = new JSONObject(requestBodyThatWeExpectIsJSON);
+        String program = jsonObject.getString(PYTHONPROGRAM_JSON_KEY);
+        this.interpreter.interpretPython(program);
+    }
 
-		if (statusCode == 200){
-			statusLine = "HTTP/1.1 200 OK" + NEWLINE;
-		}
-		else{
-			statusLine = "HTTP/1.1 404 Not Found" + NEWLINE;
-		}
+    public void sendResponse(int statusCode, String responseString) throws Exception {
 
-		responseString = PythonInterpretingHttpPostHandler.HTML_START
-				+ responseString + PythonInterpretingHttpPostHandler.HTML_END;
-		contentLengthLine = "Content-Length: " + responseString.length()
-				+ NEWLINE;
+        String statusLine = null;
+        String serverdetails = "Server: Java HTTPServer";
+        String contentLengthLine = null;
+        String fileName = null;
 
-		outToClient.close();
+        String contentTypeLine = "Content-Type: text/html" + NEWLINE;
+        FileInputStream fin = null;
 
-	}
+        if (statusCode == 200) {
+            statusLine = "HTTP/1.1 200 OK" + NEWLINE;
+        } else {
+            statusLine = "HTTP/1.1 404 Not Found" + NEWLINE;
+        }
+
+        responseString = PythonInterpretingHttpPostHandler.HTML_START
+                + responseString + PythonInterpretingHttpPostHandler.HTML_END;
+        contentLengthLine = "Content-Length: " + responseString.length()
+                + NEWLINE;
+
+        outToClient.close();
+
+    }
 
 }

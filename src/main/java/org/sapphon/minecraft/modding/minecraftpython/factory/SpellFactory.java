@@ -7,11 +7,11 @@ import org.sapphon.minecraft.modding.minecraftpython.spells.StringSpell;
 import java.io.File;
 
 public class SpellFactory {
-	public static ISpell createNonCachingSpell(File script){
-		return new NeverCachingDefaultFileSpell();
-	}
+    public static ISpell createNonCachingSpell(File script) {
+        return new NeverCachingDefaultFileSpell();
+    }
 
-	public static ISpell createStringSpell(String script){
-		return new StringSpell(script);
-	}
+    public static ISpell createStringSpell(String script) {
+        return new StringSpell(script);
+    }
 }

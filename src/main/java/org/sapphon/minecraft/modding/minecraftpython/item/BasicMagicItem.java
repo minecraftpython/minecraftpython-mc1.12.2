@@ -2,9 +2,6 @@ package org.sapphon.minecraft.modding.minecraftpython.item;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagInt;
-import net.minecraft.nbt.NBTTagLong;
-import net.minecraft.nbt.NBTTagString;
 import org.sapphon.minecraft.modding.mcutil.PlayerHelper;
 import org.sapphon.minecraft.modding.minecraftpython.MinecraftPythonMod;
 import org.sapphon.minecraft.modding.minecraftpython.async.SpellCastingRunnable;
@@ -24,7 +21,6 @@ public class BasicMagicItem {
     public BasicMagicItem(ISpell boundSpell) {
         storedSpell = boundSpell;
     }
-
 
 
     private long timer() {

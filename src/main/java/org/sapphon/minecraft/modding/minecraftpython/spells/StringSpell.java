@@ -5,7 +5,7 @@ public class StringSpell extends AbstractSpell {
 
     protected String pythonString;
 
-    public StringSpell(String pythonCode){
+    public StringSpell(String pythonCode) {
         this.pythonString = pythonCode;
         readMetadata();
     }

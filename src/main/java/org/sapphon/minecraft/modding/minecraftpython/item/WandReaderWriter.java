@@ -9,7 +9,7 @@ import org.sapphon.minecraft.modding.minecraftpython.spells.ISpell;
 import org.sapphon.minecraft.modding.minecraftpython.spells.metadata.SpellMetadataConstants;
 
 public class WandReaderWriter {
-    public static void recordOntoItem(ISpell toRecord, ItemStack toRecordOnto){
+    public static void recordOntoItem(ISpell toRecord, ItemStack toRecordOnto) {
         setWandName(toRecordOnto, toRecord.getDisplayName());
         setWandCooldown(toRecordOnto, toRecord.getCooldownInMilliseconds());
         setWandRequiredExperience(toRecordOnto, toRecord);
