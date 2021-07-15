@@ -39,7 +39,6 @@ If you know that the item you are holding in your main hand is a Pythonic wand, 
 
 ## Issues
 ### Known Issues
-* Recording a Pythonic wand over a Pythonic wand currently creates a Frankenbeast.  Beware!  This will be corrected in 0.7.2.
 * The supported version of Python is 2.7.2.  I feel I must personally apologize for that - I know that's not how it should be, but don't know how to fix it.
 
 ### How To Report Issues
