@@ -43,9 +43,9 @@ public class WandReaderWriter {
 
     private static void setWandName(ItemStack toName, String name) {
         if (name.equals(SpellMetadataConstants.NONE)) {
-            toName.setStackDisplayName("A Mysterious Magic Wand");
+            toName.setStackDisplayName("A Mysterious Pythonic Wand");
         } else {
-            toName.setStackDisplayName("A Magic Wand of " + name);
+            toName.setStackDisplayName("A Pythonic Wand of " + name);
         }
     }
 }
