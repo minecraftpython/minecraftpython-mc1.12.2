@@ -22,4 +22,6 @@ public interface ISpell {
     public String getDisplayName();
 
     public long getCooldownInMilliseconds();
+
+    public String getSmeltingIngredient();
 }

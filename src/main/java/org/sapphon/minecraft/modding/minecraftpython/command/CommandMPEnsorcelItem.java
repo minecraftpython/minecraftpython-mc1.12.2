@@ -4,8 +4,8 @@ import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 import org.sapphon.minecraft.modding.mcutil.PlayerHelper;
+import org.sapphon.minecraft.modding.minecraftpython.factory.SpellFactory;
 import org.sapphon.minecraft.modding.minecraftpython.item.WandReaderWriter;
-import org.sapphon.minecraft.modding.minecraftpython.spells.StringSpell;
 
 public class CommandMPEnsorcelItem extends CommandMinecraftPythonServer {
 
@@ -34,7 +34,7 @@ public class CommandMPEnsorcelItem extends CommandMinecraftPythonServer {
         if (playerFound != null) {
             ItemStack toEnsorcel = playerFound.getHeldItemMainhand();
             if (toEnsorcel != ItemStack.EMPTY) {
-                WandReaderWriter.recordOntoItem(new StringSpell(spellText), toEnsorcel);
+                WandReaderWriter.recordOntoItem(SpellFactory.createStringSpell(spellText), toEnsorcel);
             }
         }
     }
