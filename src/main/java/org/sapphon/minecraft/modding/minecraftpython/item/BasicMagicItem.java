@@ -6,14 +6,15 @@ import org.sapphon.minecraft.modding.mcutil.PlayerHelper;
 import org.sapphon.minecraft.modding.minecraftpython.MinecraftPythonMod;
 import org.sapphon.minecraft.modding.minecraftpython.async.SpellCastingRunnable;
 import org.sapphon.minecraft.modding.minecraftpython.async.ThreadFactory;
+import org.sapphon.minecraft.modding.minecraftpython.command.CommandMPDamageItem;
 import org.sapphon.minecraft.modding.minecraftpython.interpreter.SpellInterpreter;
 import org.sapphon.minecraft.modding.minecraftpython.io.file.MinecraftPythonScriptLoader;
 import org.sapphon.minecraft.modding.minecraftpython.network.meta.PacketMinecraftPythonDeductExperience;
 import org.sapphon.minecraft.modding.minecraftpython.spells.ISpell;
-import org.sapphon.minecraft.modding.minecraftpython.spells.metadata.SpellMetadataConstants;
 
 import static org.sapphon.minecraft.modding.mcutil.PlayerHelper.logToPlayer;
 
+//For dealing with the client-side aspects of a Pythonic wand
 public class BasicMagicItem {
     private ISpell storedSpell;
     private long lastCast = 0;
@@ -47,11 +48,7 @@ public class BasicMagicItem {
     }
 
     private void damageOrDecrementItemStackUnlessInCreative(ItemStack wand, EntityPlayer spellcaster) {
-        if (wand.getMaxDamage() > 0) {
-            wand.damageItem(1, spellcaster);
-        } else if (!spellcaster.capabilities.isCreativeMode) {
-            wand.shrink(1);
-        }
+        new CommandMPDamageItem(spellcaster.getName()).execute();
     }
 
     protected void deductCastingCost(EntityPlayer spellcaster) {
