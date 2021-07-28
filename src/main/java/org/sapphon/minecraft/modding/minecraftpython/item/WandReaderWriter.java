@@ -70,4 +70,8 @@ public class WandReaderWriter {
             toName.setStackDisplayName("A Pythonic Wand of " + name);
         }
     }
+
+    protected static String getWandPython(ItemStack toRead){
+        return toRead.getTagCompound() != null ? toRead.getTagCompound().getString(SpellMetadataConstants.KEY_SPELL_PYTHON) : SpellMetadataConstants.NONE;
+    }
 }
