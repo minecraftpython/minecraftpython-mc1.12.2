@@ -103,7 +103,7 @@ public class BasicMagicItem {
 
     public void readFromItem(ItemStack heldItemMainhand) {
         if (WandReaderWriter.isMagicWand(heldItemMainhand)) {
-            MinecraftPythonScriptLoader.SINGLETON().writeToScript(heldItemMainhand.getTagCompound().getString(SpellMetadataConstants.KEY_SPELL_PYTHON));
+            MinecraftPythonScriptLoader.SINGLETON().writeToScript(WandReaderWriter.getWandPython(heldItemMainhand));
         }
     }
 
