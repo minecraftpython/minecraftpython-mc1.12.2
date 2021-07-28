@@ -23,6 +23,11 @@ public abstract class AbstractSpell implements ISpell {
     }
 
     @Override
+    public int getMaximumUses() {
+        return getIntMetadataOrZero(SpellMetadataConstants.KEY_MAXIMUM_USES);
+    }
+
+    @Override
     public int getRequiredExperienceLevels() {
         return getIntMetadataOrZero(SpellMetadataConstants.KEY_REQUIRED_EXPERIENCE_LEVEL);
     }

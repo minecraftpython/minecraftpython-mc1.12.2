@@ -18,14 +18,24 @@ public class WandReaderWriter {
         setWandAuthor(toRecordOnto, toRecord.getAuthorName());
         setWandPython(toRecordOnto, toRecord.getPythonScriptAsString());
         setWandRecipe(toRecordOnto, toRecord.getSmeltingIngredient());
+        setWandDurability(toRecordOnto, toRecord.getMaximumUses());
     }
 
     protected static void setWandRecipe(ItemStack toBeSmelted, String ingredientName) {
-        if(!ingredientName.equals(SpellMetadataConstants.NONE)) {
+        if (!ingredientName.equals(SpellMetadataConstants.NONE)) {
             Item ingredientItem = Item.getByNameOrId(ingredientName);
-            if(ingredientItem != null) {
+            if (ingredientItem != null) {
                 GameRegistry.addSmelting(ingredientItem, toBeSmelted, 2f);
             }
+        }
+    }
+
+    protected static void setWandDurability(ItemStack toLimitUsesOf, int maximumUses) {
+        if(maximumUses > 1){
+                toLimitUsesOf.getItem().setMaxDamage(maximumUses-1);
+        }
+        else{
+            toLimitUsesOf.getItem().setMaxDamage(0);
         }
     }
 
