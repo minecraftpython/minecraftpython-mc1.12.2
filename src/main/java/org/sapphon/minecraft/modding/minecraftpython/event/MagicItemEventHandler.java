@@ -12,6 +12,7 @@ import org.sapphon.minecraft.modding.minecraftpython.factory.MagicItemFactory;
 import org.sapphon.minecraft.modding.minecraftpython.factory.SpellFactory;
 import org.sapphon.minecraft.modding.minecraftpython.item.BasicMagicItem;
 import org.sapphon.minecraft.modding.minecraftpython.item.WandReaderWriter;
+import org.sapphon.minecraft.modding.minecraftpython.item.tooltip.TooltipWriter;
 import org.sapphon.minecraft.modding.minecraftpython.spells.metadata.SpellMetadataConstants;
 
 import java.util.LinkedHashMap;
@@ -45,36 +46,8 @@ public class MagicItemEventHandler {
     @SubscribeEvent
     public void onTooltip(ItemTooltipEvent event) {
         ItemStack item = event.getItemStack();
-        if (WandReaderWriter.isMagicWand(item) && item.getTagCompound() != null) {
-            if (item.getTagCompound().hasKey(SpellMetadataConstants.KEY_COOLDOWN_MILLIS)) {
-                event.getToolTip().add("Cooldown: " + item.getTagCompound().getLong(SpellMetadataConstants.KEY_COOLDOWN_MILLIS));
-            }
-            if (item.getTagCompound().hasKey(SpellMetadataConstants.KEY_AUTHOR_NAME)) {
-                event.getToolTip().add("Author : " + item.getTagCompound().getString(SpellMetadataConstants.KEY_AUTHOR_NAME));
-            }
-            addConstraintTooltips(event, item);
+        if (WandReaderWriter.isMagicWand(item)) {
+            TooltipWriter.forItem(event, item);
         }
-    }
-
-    private void addConstraintTooltips(ItemTooltipEvent event, ItemStack item) {
-        if (item.getTagCompound().hasKey(SpellMetadataConstants.KEY_REQUIRED_EXPERIENCE_POINTS) &&
-                item.getTagCompound().getInteger(SpellMetadataConstants.KEY_REQUIRED_EXPERIENCE_POINTS) > 0) {
-            event.getToolTip().add(buildConstraintTooltip(false, true, item.getTagCompound().getInteger(SpellMetadataConstants.KEY_REQUIRED_EXPERIENCE_POINTS)));
-
-        } else if (item.getTagCompound().hasKey(SpellMetadataConstants.KEY_REQUIRED_EXPERIENCE_LEVEL) &&
-                item.getTagCompound().getInteger(SpellMetadataConstants.KEY_REQUIRED_EXPERIENCE_LEVEL) > 0) {
-            event.getToolTip().add(buildConstraintTooltip(false, false, item.getTagCompound().getInteger(SpellMetadataConstants.KEY_REQUIRED_EXPERIENCE_LEVEL)));
-        }
-        if (item.getTagCompound().hasKey(SpellMetadataConstants.KEY_CONSUMED_EXPERIENCE_POINTS) &&
-                item.getTagCompound().getInteger(SpellMetadataConstants.KEY_CONSUMED_EXPERIENCE_POINTS) > 0) {
-            event.getToolTip().add(buildConstraintTooltip(true, true, item.getTagCompound().getInteger(SpellMetadataConstants.KEY_CONSUMED_EXPERIENCE_POINTS)));
-        } else if (item.getTagCompound().hasKey(SpellMetadataConstants.KEY_CONSUMED_EXPERIENCE_LEVELS) &&
-                item.getTagCompound().getInteger(SpellMetadataConstants.KEY_CONSUMED_EXPERIENCE_LEVELS) > 0) {
-            event.getToolTip().add(buildConstraintTooltip(true, false, item.getTagCompound().getInteger(SpellMetadataConstants.KEY_CONSUMED_EXPERIENCE_LEVELS)));
-        }
-    }
-
-    protected String buildConstraintTooltip(boolean isPermanentCost, boolean isXpPoints, int costOrMinimum) {
-        return (isPermanentCost ? "Costs " : "Requires ") + costOrMinimum + (isXpPoints ? " Experience Points" : " Levels") + " To Use";
     }
 }
