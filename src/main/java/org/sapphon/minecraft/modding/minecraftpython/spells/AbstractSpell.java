@@ -63,6 +63,11 @@ public abstract class AbstractSpell implements ISpell {
     }
 
     @Override
+    public String getSmeltingIngredient() {
+        return getMetadataValueOrNONEIfNotPresent(SpellMetadataConstants.KEY_SMELTING_INGREDIENT);
+    }
+
+    @Override
     public String getAuthorName() {
         String value = getMetadataValueOrNONEIfNotPresent(SpellMetadataConstants.KEY_AUTHOR_NAME);
         if (value.equals(SpellMetadataConstants.NONE)) {

@@ -12,4 +12,5 @@ public class SpellMetadataConstants {
     public static final String KEY_REQUIRED_EXPERIENCE_POINTS = "cast_min_xp";
     public static final String KEY_CONSUMED_EXPERIENCE_LEVELS = "cast_level_cost";
     public static final String KEY_CONSUMED_EXPERIENCE_POINTS = "cast_xp_cost";
+    public static final String KEY_SMELTING_INGREDIENT = "smelting_ingredient";
 }
