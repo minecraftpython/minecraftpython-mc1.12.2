@@ -49,8 +49,10 @@ public class PacketMinecraftPythonServerCommand implements IMessage {
             command = new CommandMPSpawnItem(commandAndArgsToDeserialize);
         } else if (commandName.equals(CommandMinecraftPythonServer.CONSOLECOMMAND_NAME)) {
             command = new CommandMPExecuteConsoleCommand(commandAndArgsToDeserialize);
-        } else if (commandName.equals(CommandMPEnsorcelItem.ENSORCEL_ITEM_NAME)) {
+        } else if (commandName.equals(CommandMPEnsorcelItem.ENSORCELITEM_NAME)) {
             command = new CommandMPEnsorcelItem(commandAndArgsToDeserialize);
+        } else if (commandName.equals(CommandMPDamageItem.DAMAGEITEM_NAME)) {
+            command = new CommandMPDamageItem(commandAndArgsToDeserialize);
         } else {
             JavaProblemHandler.printErrorMessageToDialogBox(new Exception(
                     "A server-side command  (type " + commandName
