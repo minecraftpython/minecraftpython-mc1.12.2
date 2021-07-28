@@ -29,12 +29,12 @@ public class MagicItemEventHandler {
         ItemStack rightClickedStack = event.getItemStack();
         if (PlayerHelper.isOnLogicalClient(event.getEntityPlayer()) && ModConfigurationFlags.WAND_USE() && WandReaderWriter.isMagicWand(rightClickedStack)) {
             if (magicItems.containsKey(rightClickedStack)) {
-                magicItems.get(rightClickedStack).attemptMagic(event.getEntityPlayer());
+                magicItems.get(rightClickedStack).attemptMagic(event.getEntityPlayer(), rightClickedStack);
             } else {
                 String pythonScript = rightClickedStack.getTagCompound().getString(SpellMetadataConstants.KEY_SPELL_PYTHON);
                 BasicMagicItem newMagicItem = MagicItemFactory.createBasic(SpellFactory.createStringSpell(pythonScript));
                 magicItems.put(rightClickedStack, newMagicItem);
-                newMagicItem.attemptMagic(event.getEntityPlayer());
+                newMagicItem.attemptMagic(event.getEntityPlayer(), rightClickedStack);
             }
             event.setCanceled(true);
             event.setResult(Event.Result.DENY);

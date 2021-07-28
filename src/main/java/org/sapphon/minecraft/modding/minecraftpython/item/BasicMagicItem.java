@@ -27,11 +27,12 @@ public class BasicMagicItem {
         return System.currentTimeMillis() - lastCast;
     }
 
-    public void attemptMagic(EntityPlayer spellcaster) {
+    public void attemptMagic(EntityPlayer spellcaster, ItemStack wand) {
         if (meetsMinima(spellcaster)) {
             if (canPayCost(spellcaster)) {
                 if (timer() > storedSpell.getCooldownInMilliseconds()) {
                     deductCastingCost(spellcaster);
+                    damageOrDecrementItemStackUnlessInCreative(wand, spellcaster);
                     this.doMagic();
                     lastCast = System.currentTimeMillis();
                 } else {
@@ -42,6 +43,14 @@ public class BasicMagicItem {
             }
         } else {
             logToPlayer(spellcaster, "Not enough experience to know how to use this.");
+        }
+    }
+
+    private void damageOrDecrementItemStackUnlessInCreative(ItemStack wand, EntityPlayer spellcaster) {
+        if (wand.getMaxDamage() > 0) {
+            wand.damageItem(1, spellcaster);
+        } else if (!spellcaster.capabilities.isCreativeMode) {
+            wand.shrink(1);
         }
     }
 
