@@ -1,5 +1,6 @@
 package org.sapphon.minecraft.modding.minecraftpython;
 
+import net.minecraft.item.crafting.IRecipe;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.SidedProxy;
@@ -8,7 +9,9 @@ import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.registries.GameData;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.sapphon.minecraft.modding.minecraftpython.async.ThreadFactory;
@@ -16,6 +19,7 @@ import org.sapphon.minecraft.modding.minecraftpython.event.MagicItemEventHandler
 import org.sapphon.minecraft.modding.minecraftpython.event.MinecraftPythonKeyHandler;
 import org.sapphon.minecraft.modding.minecraftpython.io.file.MinecraftPythonScriptLoader;
 import org.sapphon.minecraft.modding.minecraftpython.io.file.ScriptLoaderConstants;
+import org.sapphon.minecraft.modding.minecraftpython.item.recipe.RecipePythonicWand;
 import org.sapphon.minecraft.modding.minecraftpython.network.meta.PacketHandlerMinecraftPythonMeta;
 import org.sapphon.minecraft.modding.minecraftpython.network.meta.PacketMinecraftPythonDeductExperience;
 import org.sapphon.minecraft.modding.minecraftpython.network.python.PacketHandlerMinecraftPythonClientCommand;
@@ -91,6 +95,7 @@ public class MinecraftPythonMod {
                                     .getMagicVessel()));
             MinecraftForge.EVENT_BUS.register(new MagicItemEventHandler());
         }
+        GameRegistry.findRegistry(IRecipe.class).register(RecipePythonicWand.SINGLETON());
         proxy.registerRenderers();
     }
 

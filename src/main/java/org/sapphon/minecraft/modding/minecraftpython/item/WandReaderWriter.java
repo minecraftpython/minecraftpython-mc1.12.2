@@ -7,8 +7,11 @@ import net.minecraft.nbt.NBTTagInt;
 import net.minecraft.nbt.NBTTagLong;
 import net.minecraft.nbt.NBTTagString;
 import net.minecraftforge.fml.common.registry.GameRegistry;
+import org.sapphon.minecraft.modding.minecraftpython.item.recipe.RecipePythonicWand;
 import org.sapphon.minecraft.modding.minecraftpython.spells.ISpell;
 import org.sapphon.minecraft.modding.minecraftpython.spells.metadata.SpellMetadataConstants;
+
+import java.util.ArrayList;
 
 public class WandReaderWriter {
     public static void recordOntoItem(ISpell toRecord, ItemStack toRecordOnto) {
@@ -17,11 +20,17 @@ public class WandReaderWriter {
         setWandRequiredExperience(toRecordOnto, toRecord);
         setWandAuthor(toRecordOnto, toRecord.getAuthorName());
         setWandPython(toRecordOnto, toRecord.getPythonScriptAsString());
-        setWandRecipe(toRecordOnto, toRecord.getSmeltingIngredient());
+        setWandSmeltingRecipe(toRecordOnto, toRecord.getSmeltingIngredient());
+        setWandCraftingRecipe(toRecordOnto, new ArrayList<String>(9){{add("stick");
+            add("stick");add("stick");add("stick");add("stick");add("stick");add("stick");add("stick");add("stick");}});
         setWandDurability(toRecordOnto, toRecord.getMaximumUses());
     }
 
-    protected static void setWandRecipe(ItemStack toBeSmelted, String ingredientName) {
+    protected static void setWandCraftingRecipe(ItemStack toRecordOnto, ArrayList<String> strings) {
+        RecipePythonicWand.SINGLETON().registerRecipeForWand(toRecordOnto,strings);
+    }
+
+    protected static void setWandSmeltingRecipe(ItemStack toBeSmelted, String ingredientName) {
         if (!ingredientName.equals(SpellMetadataConstants.NONE)) {
             Item ingredientItem = Item.getByNameOrId(ingredientName);
             if (ingredientItem != null) {
