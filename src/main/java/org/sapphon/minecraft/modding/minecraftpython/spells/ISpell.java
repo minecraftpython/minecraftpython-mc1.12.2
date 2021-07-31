@@ -3,6 +3,9 @@ package org.sapphon.minecraft.modding.minecraftpython.spells;
 import org.python.core.PyCode;
 import org.python.util.PythonInterpreter;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 public interface ISpell {
     public String getPythonScriptAsString();
@@ -26,4 +29,6 @@ public interface ISpell {
     public String getSmeltingIngredient();
 
     public int getMaximumUses();
+
+    List<String> getCraftingIngredients();
 }

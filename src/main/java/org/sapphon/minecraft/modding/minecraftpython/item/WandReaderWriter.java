@@ -12,6 +12,7 @@ import org.sapphon.minecraft.modding.minecraftpython.spells.ISpell;
 import org.sapphon.minecraft.modding.minecraftpython.spells.metadata.SpellMetadataConstants;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class WandReaderWriter {
     public static void recordOntoItem(ISpell toRecord, ItemStack toRecordOnto) {
@@ -21,13 +22,14 @@ public class WandReaderWriter {
         setWandAuthor(toRecordOnto, toRecord.getAuthorName());
         setWandPython(toRecordOnto, toRecord.getPythonScriptAsString());
         setWandSmeltingRecipe(toRecordOnto, toRecord.getSmeltingIngredient());
-        setWandCraftingRecipe(toRecordOnto, new ArrayList<String>(9){{add("stick");
-            add("stick");add("stick");add("stick");add("stick");add("stick");add("stick");add("stick");add("stick");}});
+        setWandCraftingRecipe(toRecordOnto, toRecord.getCraftingIngredients());
         setWandDurability(toRecordOnto, toRecord.getMaximumUses());
     }
 
-    protected static void setWandCraftingRecipe(ItemStack toRecordOnto, ArrayList<String> strings) {
-        RecipePythonicWand.SINGLETON().registerRecipeForWand(toRecordOnto,strings);
+    protected static void setWandCraftingRecipe(ItemStack toRecordOnto, List<String> strings) {
+        if(strings.size() == 9) {
+            RecipePythonicWand.SINGLETON().registerRecipeForWand(toRecordOnto, strings);
+        }
     }
 
     protected static void setWandSmeltingRecipe(ItemStack toBeSmelted, String ingredientName) {

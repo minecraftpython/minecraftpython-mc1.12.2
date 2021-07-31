@@ -30,7 +30,7 @@ public class RecipePythonicWand extends ShapedRecipes {
     }
 
     public void registerRecipeForWand(ItemStack wand, List<String> itemNames){
-        this.ingredientsToWands.put(itemNames, wand);
+        this.ingredientsToWands.put(itemNames, wand.copy());
     }
 
     @Override
@@ -56,12 +56,10 @@ public class RecipePythonicWand extends ShapedRecipes {
 
     private boolean compareInvToItemList(InventoryCrafting inv, List<String> itemNames) {
         for(int i=0;i<itemNames.size();i++){
-            System.out.println("comparing " + inv.getStackInSlot(i).getItem().getUnlocalizedName() + " to " + "item."+itemNames.get(i));
-            if(inv.getStackInSlot(i).getItem().getUnlocalizedName().compareToIgnoreCase("item."+itemNames.get(i)) != 0){
+            if(inv.getStackInSlot(i).getItem().getUnlocalizedName().compareToIgnoreCase("item."+itemNames.get(i)) != 0 && (!itemNames.get(i).isEmpty() || !inv.getStackInSlot(i).getItem().getUnlocalizedName().equals("tile.air"))){
                 return false;
             }
         }
-        System.out.println("Approving match");
         return true;
     }
 }
