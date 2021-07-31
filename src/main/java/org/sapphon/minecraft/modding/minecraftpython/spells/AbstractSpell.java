@@ -6,8 +6,8 @@ import org.sapphon.minecraft.modding.minecraftpython.MinecraftPythonMod;
 import org.sapphon.minecraft.modding.minecraftpython.problemhandlers.JavaProblemHandler;
 import org.sapphon.minecraft.modding.minecraftpython.spells.metadata.SpellMetadataConstants;
 
-import java.util.LinkedHashMap;
-import java.util.Map;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public abstract class AbstractSpell implements ISpell {
     protected PyCode pythonCompiledCode;
@@ -70,6 +70,17 @@ public abstract class AbstractSpell implements ISpell {
     @Override
     public String getSmeltingIngredient() {
         return getMetadataValueOrNONEIfNotPresent(SpellMetadataConstants.KEY_SMELTING_INGREDIENT);
+    }
+
+    @Override
+    public List<String> getCraftingIngredients(){
+        String ingredientString = getMetadataValueOrNONEIfNotPresent(SpellMetadataConstants.KEY_CRAFTING_INGREDIENTS);
+        if(ingredientString.equals(SpellMetadataConstants.NONE)){
+            return new ArrayList<>();
+        }
+        else{
+            return Arrays.stream(ingredientString.split(",",9)).collect(Collectors.toList());
+        }
     }
 
     @Override
