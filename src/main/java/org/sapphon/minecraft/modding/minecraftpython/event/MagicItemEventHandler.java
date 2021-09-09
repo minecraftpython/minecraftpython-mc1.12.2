@@ -1,7 +1,9 @@
 package org.sapphon.minecraft.modding.minecraftpython.event;
 
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumActionResult;
+import net.minecraftforge.event.AnvilUpdateEvent;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.fml.common.eventhandler.Event;
@@ -22,6 +24,7 @@ public class MagicItemEventHandler {
 
     Map<ItemStack, BasicMagicItem> magicItems = new LinkedHashMap<>();
 
+
     public MagicItemEventHandler() {
     }
 
@@ -40,6 +43,22 @@ public class MagicItemEventHandler {
             event.setCanceled(true);
             event.setResult(Event.Result.DENY);
             event.setCancellationResult(EnumActionResult.FAIL);
+        }
+    }
+
+    @SubscribeEvent
+    public void onAnvilUpdate(AnvilUpdateEvent event) {
+        if (WandReaderWriter.isMagicWand(event.getLeft())) {
+            Item itemOrNull = Item.getByNameOrId(WandReaderWriter.getWandAnvilItem(event.getLeft()));
+            if (itemOrNull != null) {
+                ItemStack copy = event.getLeft().copy();
+                copy.grow(1);
+                int wandAnvilCost = WandReaderWriter.getWandAnvilCost(event.getLeft());
+                if(wandAnvilCost >= 0) {
+                    event.setCost(wandAnvilCost);
+                }
+                event.setOutput(copy);
+            }
         }
     }
 
