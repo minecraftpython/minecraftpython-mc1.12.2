@@ -41,6 +41,14 @@ public class WandReaderWriter {
         }
     }
 
+    public static String getWandAnvilItem(ItemStack toRead){
+        return toRead.getTagCompound() != null ? toRead.getTagCompound().getString(SpellMetadataConstants.KEY_ANVIL_ITEM) : SpellMetadataConstants.NONE;
+    }
+
+    public static int getWandAnvilCost(ItemStack toRead) {
+        return toRead.getTagCompound() != null ? toRead.getTagCompound().getInteger(SpellMetadataConstants.KEY_ANVIL_COST) : -1;
+    }
+
     protected static void setWandDurability(ItemStack toLimitUsesOf, int maximumUses) {
         if(maximumUses > 1){
                 toLimitUsesOf.getItem().setMaxDamage(maximumUses-1);
