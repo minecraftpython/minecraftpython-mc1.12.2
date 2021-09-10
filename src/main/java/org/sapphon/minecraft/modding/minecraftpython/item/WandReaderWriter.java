@@ -23,7 +23,19 @@ public class WandReaderWriter {
         setWandPython(toRecordOnto, toRecord.getPythonScriptAsString());
         setWandSmeltingRecipe(toRecordOnto, toRecord.getSmeltingIngredient());
         setWandCraftingRecipe(toRecordOnto, toRecord.getCraftingIngredients());
+        setAnvilRepair(toRecordOnto, toRecord);
         setWandDurability(toRecordOnto, toRecord.getMaximumUses());
+    }
+
+    protected static void setAnvilRepair(ItemStack toRecordOnto, ISpell toRecord) {
+        String ingredientName = toRecord.getAnvilIngredient();
+        int anvilCost = toRecord.getAnvilCost();
+        if(!ingredientName.equals(SpellMetadataConstants.NONE)){
+            toRecordOnto.setTagInfo(SpellMetadataConstants.KEY_ANVIL_ITEM, new NBTTagString(ingredientName));
+            if(anvilCost != 0){
+                toRecordOnto.setTagInfo(SpellMetadataConstants.KEY_ANVIL_COST, new NBTTagInt(anvilCost));
+            }
+        }
     }
 
     protected static void setWandCraftingRecipe(ItemStack toRecordOnto, List<String> strings) {
@@ -46,7 +58,7 @@ public class WandReaderWriter {
     }
 
     public static int getWandAnvilCost(ItemStack toRead) {
-        return toRead.getTagCompound() != null ? toRead.getTagCompound().getInteger(SpellMetadataConstants.KEY_ANVIL_COST) : -1;
+        return toRead.getTagCompound() != null ? toRead.getTagCompound().getInteger(SpellMetadataConstants.KEY_ANVIL_COST) : 0;
     }
 
     protected static void setWandDurability(ItemStack toLimitUsesOf, int maximumUses) {
