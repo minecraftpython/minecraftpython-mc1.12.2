@@ -21,9 +21,9 @@ public class WandReaderWriter {
         setWandRequiredExperience(toRecordOnto, toRecord);
         setWandAuthor(toRecordOnto, toRecord.getAuthorName());
         setWandPython(toRecordOnto, toRecord.getPythonScriptAsString());
+        setAnvilRepair(toRecordOnto, toRecord);
         setWandSmeltingRecipe(toRecordOnto, toRecord.getSmeltingIngredient());
         setWandCraftingRecipe(toRecordOnto, toRecord.getCraftingIngredients());
-        setAnvilRepair(toRecordOnto, toRecord);
     }
 
     protected static void setAnvilRepair(ItemStack toRecordOnto, ISpell toRecord) {
