@@ -33,7 +33,7 @@ import org.sapphon.minecraft.modding.minecraftpython.proxy.DedicatedServerProxy;
 @Mod(modid = MinecraftPythonMod.MODID, version = MinecraftPythonMod.VERSION, name = MinecraftPythonMod.MODID)
 public class MinecraftPythonMod {
     public static final String MODID = "minecraftpython";
-    public static final String VERSION = "1.12.2-0.7.2";
+    public static final String VERSION = "1.12.2-0.7.3";
     public static final int SCRIPT_RUN_COOLDOWN = 1500;
     public static final Logger logger = LogManager.getLogger(MinecraftPythonMod.MODID);
 
