@@ -15,6 +15,6 @@ public class SpellMetadataConstants {
     public static final String KEY_SMELTING_INGREDIENT = "smelting_ingredient";
     public static final String KEY_MAXIMUM_USES = "uses";
     public static final String KEY_CRAFTING_INGREDIENTS = "crafting_ingredients";
-    public static final String KEY_ANVIL_ITEM = "anvil_repair_item";
-    public static final String KEY_ANVIL_COST = "anvil_repair_level_cost";
+    public static final String KEY_ANVIL_ITEM = "anvil_ingredient";
+    public static final String KEY_ANVIL_COST = "anvil_level_cost";
 }
