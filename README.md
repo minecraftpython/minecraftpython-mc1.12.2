@@ -20,17 +20,9 @@ While playing, you can strike a key (default 'P') to run the contents of your sc
 Once a script works as you wish, you can hold an item (using a valuable one isn't recommended) and strike a key (default 'K') to record your script onto the item, turning it into a Pythonic wand.
 
 #### Adding Script Metadata when Saving
-You can control several things about how a Python script is saved onto an item.  Each is specified by including a 'comment' line in your Python code - a statement that does nothing programmatically, but will be picked up by the mod and respected.
+You can control several things about how a Python script is saved onto an item, including how others players may craft, smelt, etc. more of that item in the future.  Each is specified by including a 'comment' line in your Python code - a statement that does nothing programmatically, but will be picked up by the mod and respected.
 
-Use the glyph `<=>` between the name of the piece of metadata you want to configure, and its value.
-* Name - you can control what name the item used to save the script will take.  Example: `#name<=>Abracadabra` will produce "A Pythonic Wand of Abracadabra".
-* Cooldown - a user can be made to wait between uses of the saved script.  This is in milliseconds.  Example: `#cooldown<=>2000` for a 2-second wait.
-* Author - you can immortalize yourself for all time as the source of a saved script.  Example: `#author<=>sapphon` will show my username in the tooltip of the item.
-* Minimum level - you can prevent players below a certain experience level from running the saved script.  Example: `#cast_min_level<=>4` means Level 4 and above players may use the saved script.
-* Minimum XP - similar to the above, but counted in experience points rather than levels.  Example: `#cast_min_xp<=>200` will restrict use to players who possess more than 200 total experience points. (Note: if you specify both this and cast_min_level, cast_min_level will be ignored.)
-* Level cost - the specified number of levels will be deducted from the user's experience level every time the saved script is used.  Example: `#cast_level_cost<=>3` will make the saved script 'cost' 3 levels with every use.
-* XP cost - more granular than levels, you can also deduct a certain number of experience points per use.  Example: `#cast_xp_cost<=>175` will deduct 175 experience points with every use of the stored script.  (Note: if you specify both this and cast_level_cost, cast_level_cost will be ignored.)
-
+For documentation of the script metadata system, see [the scripting guide](https://github.com/minecraftpython/minecraftpython-mc1.12.2/blob/master/SCRIPTING.md)
 ### Running a Script from an Item
 To run the script stored in a Pythonic wand, right-click your mouse while holding the wand.  (If you can't pay the script's costs, you'll receive a message with details.)
 
