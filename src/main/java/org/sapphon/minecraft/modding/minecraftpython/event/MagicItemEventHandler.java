@@ -46,19 +46,22 @@ public class MagicItemEventHandler {
         }
     }
 
+    private boolean matchesWandInAnvil(ItemStack wand, ItemStack ingredient) {
+        if (WandReaderWriter.isMagicWand(wand)) {
+            Item itemOrNull = Item.getByNameOrId(WandReaderWriter.getWandAnvilItem(wand));
+            if (itemOrNull != null && itemOrNull == ingredient.getItem()) return true;
+        }
+        return false;
+    }
+
     @SubscribeEvent
     public void onAnvilUpdate(AnvilUpdateEvent event) {
-        if (WandReaderWriter.isMagicWand(event.getLeft())) {
-            Item itemOrNull = Item.getByNameOrId(WandReaderWriter.getWandAnvilItem(event.getLeft()));
-            if (itemOrNull != null) {
-                ItemStack copy = event.getLeft().copy();
-                copy.grow(1);
-                int wandAnvilCost = WandReaderWriter.getWandAnvilCost(event.getLeft());
-                if(wandAnvilCost > 0) {
-                    event.setCost(wandAnvilCost);
-                }
-                event.setOutput(copy);
-            }
+        if (matchesWandInAnvil(event.getLeft(), event.getRight())) {
+            ItemStack copy = event.getLeft().copy();
+            copy.grow(1);
+            int wandAnvilCost = WandReaderWriter.getWandAnvilCost(event.getLeft());
+            event.setCost(Math.max(wandAnvilCost, 1));  //cost of 0 makes the item unretrievable
+            event.setOutput(copy);
         }
     }
 
