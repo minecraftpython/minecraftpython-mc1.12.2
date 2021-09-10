@@ -28,6 +28,10 @@ public interface ISpell {
 
     public String getSmeltingIngredient();
 
+    public String getAnvilIngredient();
+
+    public int getAnvilCost();
+
     public int getMaximumUses();
 
     List<String> getCraftingIngredients();

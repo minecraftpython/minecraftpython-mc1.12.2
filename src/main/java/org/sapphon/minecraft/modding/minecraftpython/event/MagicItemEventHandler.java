@@ -54,7 +54,7 @@ public class MagicItemEventHandler {
                 ItemStack copy = event.getLeft().copy();
                 copy.grow(1);
                 int wandAnvilCost = WandReaderWriter.getWandAnvilCost(event.getLeft());
-                if(wandAnvilCost >= 0) {
+                if(wandAnvilCost > 0) {
                     event.setCost(wandAnvilCost);
                 }
                 event.setOutput(copy);

@@ -33,6 +33,16 @@ public abstract class AbstractSpell implements ISpell {
     }
 
     @Override
+    public String getAnvilIngredient(){
+        return getMetadataValueOrNONEIfNotPresent(SpellMetadataConstants.KEY_ANVIL_ITEM);
+    }
+
+    @Override
+    public int getAnvilCost(){
+        return getIntMetadataOrZero(SpellMetadataConstants.KEY_ANVIL_COST);
+    }
+
+    @Override
     public int getRequiredExperiencePoints() {
         return getIntMetadataOrZero(SpellMetadataConstants.KEY_REQUIRED_EXPERIENCE_POINTS);
     }
