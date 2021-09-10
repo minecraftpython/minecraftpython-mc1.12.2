@@ -48,7 +48,7 @@ public class WandReaderWriter {
         if (!ingredientName.equals(SpellMetadataConstants.NONE)) {
             Item ingredientItem = Item.getByNameOrId(ingredientName);
             if (ingredientItem != null) {
-                GameRegistry.addSmelting(ingredientItem, toBeSmelted, 2f);
+                GameRegistry.addSmelting(ingredientItem, toBeSmelted.copy(), 2f);
             }
         }
     }
