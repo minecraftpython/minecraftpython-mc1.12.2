@@ -3,7 +3,7 @@ package org.sapphon.minecraft.modding.minecraftpython.command;
 
 public abstract class CommandMinecraftPythonServer extends CommandMinecraftPythonAbstract {
     //items
-    public static final String DAMAGEITEM_NAME = "di";
+    public static final String TAKEITEM_NAME = "ti";
     public static final String ENSORCELITEM_NAME = "ei";
     public static final String SPAWNITEM_NAME = "si";
     //blocks

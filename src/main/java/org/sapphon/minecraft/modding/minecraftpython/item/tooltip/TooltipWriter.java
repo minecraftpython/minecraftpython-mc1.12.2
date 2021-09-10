@@ -6,13 +6,13 @@ import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import org.sapphon.minecraft.modding.minecraftpython.spells.metadata.SpellMetadataConstants;
 
 public class TooltipWriter {
-    public static void forItem(ItemTooltipEvent event, ItemStack item){
-            NBTTagCompound tagCompound = item.getTagCompound();
-        if(tagCompound != null) {
+    public static void forItem(ItemTooltipEvent event, ItemStack item) {
+        NBTTagCompound tagCompound = item.getTagCompound();
+        if (tagCompound != null) {
             addCooldownTooltip(event, tagCompound);
             addAuthorTooltip(event, tagCompound);
             addConstraintTooltips(event, tagCompound);
-            addUsesTooltips(event, item);
+            addUsesTooltips(event);
         }
     }
 
@@ -28,14 +28,8 @@ public class TooltipWriter {
         }
     }
 
-    protected static void addUsesTooltips(ItemTooltipEvent event, ItemStack item) {
-        if (item.isItemStackDamageable()) {
-            String maximumUsesString = Integer.toString(item.getMaxDamage() + 1);
-            String remainingUsesString = Integer.toString(item.getMaxDamage() + 1 - item.getItemDamage());
-            event.getToolTip().add(remainingUsesString + " of " + maximumUsesString + " uses remaining");
-        } else {
-            event.getToolTip().add("1 of 1 use remaining");
-        }
+    protected static void addUsesTooltips(ItemTooltipEvent event) {
+        event.getToolTip().add("Consumed when used");
     }
 
     protected static void addConstraintTooltips(ItemTooltipEvent event, NBTTagCompound itemTag) {
