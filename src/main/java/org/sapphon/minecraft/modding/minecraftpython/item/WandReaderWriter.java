@@ -24,7 +24,6 @@ public class WandReaderWriter {
         setWandSmeltingRecipe(toRecordOnto, toRecord.getSmeltingIngredient());
         setWandCraftingRecipe(toRecordOnto, toRecord.getCraftingIngredients());
         setAnvilRepair(toRecordOnto, toRecord);
-        setWandDurability(toRecordOnto, toRecord.getMaximumUses());
     }
 
     protected static void setAnvilRepair(ItemStack toRecordOnto, ISpell toRecord) {
@@ -59,15 +58,6 @@ public class WandReaderWriter {
 
     public static int getWandAnvilCost(ItemStack toRead) {
         return toRead.getTagCompound() != null ? toRead.getTagCompound().getInteger(SpellMetadataConstants.KEY_ANVIL_COST) : 0;
-    }
-
-    protected static void setWandDurability(ItemStack toLimitUsesOf, int maximumUses) {
-        if(maximumUses > 1){
-                toLimitUsesOf.getItem().setMaxDamage(maximumUses-1);
-        }
-        else{
-            toLimitUsesOf.getItem().setMaxDamage(0);
-        }
     }
 
     public static boolean isMagicWand(ItemStack itemStack) {

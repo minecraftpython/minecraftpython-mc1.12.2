@@ -32,7 +32,5 @@ public interface ISpell {
 
     public int getAnvilCost();
 
-    public int getMaximumUses();
-
     List<String> getCraftingIngredients();
 }

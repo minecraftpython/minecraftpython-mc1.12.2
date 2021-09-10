@@ -6,7 +6,7 @@ import org.sapphon.minecraft.modding.mcutil.PlayerHelper;
 import org.sapphon.minecraft.modding.minecraftpython.MinecraftPythonMod;
 import org.sapphon.minecraft.modding.minecraftpython.async.SpellCastingRunnable;
 import org.sapphon.minecraft.modding.minecraftpython.async.ThreadFactory;
-import org.sapphon.minecraft.modding.minecraftpython.command.CommandMPDamageItem;
+import org.sapphon.minecraft.modding.minecraftpython.command.CommandMPTakeItem;
 import org.sapphon.minecraft.modding.minecraftpython.interpreter.SpellInterpreter;
 import org.sapphon.minecraft.modding.minecraftpython.io.file.MinecraftPythonScriptLoader;
 import org.sapphon.minecraft.modding.minecraftpython.network.meta.PacketMinecraftPythonDeductExperience;
@@ -48,7 +48,7 @@ public class BasicMagicItem {
     }
 
     private void damageOrDecrementItemStackUnlessInCreative(ItemStack wand, EntityPlayer spellcaster) {
-        new CommandMPDamageItem(spellcaster.getName()).execute();
+        new CommandMPTakeItem(spellcaster.getName()).execute();
     }
 
     protected void deductCastingCost(EntityPlayer spellcaster) {
