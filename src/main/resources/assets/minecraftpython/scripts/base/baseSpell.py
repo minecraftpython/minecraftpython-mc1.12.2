@@ -137,6 +137,33 @@ def cube(x,y,z,blocktype=DIRT,size=2):
 				for cubeZ in range(0, size):
 					setblock(x+cubeX, y+cubeY, z+cubeZ, blocktype)
 
+
+def xrow(startx, y, z, length=2, blocktype=DIRT):
+	for n in range(startx, startx+length):
+		setblock(n, y, z, blocktype)
+
+
+def octahedron(x,y,z,blocktype=DIRT,size=3):
+	if(size % 2 == 0):
+		size+=1
+	radius = int((size-1)/2)
+	def horizontal_slice_of_sphere(slice_y):
+		def distance_from_center(level):
+			return abs(y-level)
+		step = radius - distance_from_center(slice_y)
+		step_size = step * 2 + 1
+		xrow(x-step,slice_y,z,step_size,blocktype)
+		z_offset = 0
+		for row_size in range(step_size-2, 0, -2):
+			z_offset += 1
+			xrow(x-row_size/2, slice_y,z+z_offset,row_size, blocktype)
+			xrow(x-row_size/2, slice_y,z-z_offset,row_size, blocktype)
+	for n in range(y-radius,y+radius+1):
+		horizontal_slice_of_sphere(n)
+
+def sphere(x,y,z,blocktype=DIRT,size=3):
+	octahedron(x,y,z,blocktype,size)
+
 def getrect(x,y,z,x2,y2,z2):    #since these names are less than cool, x,y,z, is one corner and x2,y2,z2 are the other corner of an imaginary a rectangle
    		return [[[getblock(i,j,k) for k in range(z,z2)] for j in range(y,y2)] for i in range(x,x2)]
 
