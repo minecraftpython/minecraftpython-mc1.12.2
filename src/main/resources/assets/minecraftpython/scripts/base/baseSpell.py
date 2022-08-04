@@ -107,17 +107,12 @@ def setblock(x=None,y=None,z=None,blocktype=DIRT,meta=0,origin=WORLD,tileEntityN
 		y=myY()
 		z=myZ()
 	command.CommandMPSetBlock(x,y,z,blocktype,meta,tileEntityNbtData).execute()
-	#_setblock_sparkle(x,y,z)   #currently not performant enough for use
 
-def propel(x,y,z,entityId="",origin=WORLD):
-	if(origin==PLAYER):
-		x=x*lookX()
-		y=y*lookY()
-		z=z*lookZ()
+def propel(x,y,z,entityId=""):
 	if(entityId != ""):
 		command.CommandMPPropelEntity(x,y,z,entityId).execute()
 	else:
-		#no entity specified, so propel the player
+		#no entity specified, so propel the executing player
 		command.CommandMPPropelEntity(x,y,z).execute()
 
 def getblock(x,y,z):
@@ -175,6 +170,3 @@ def setrect(x,y,z, blockTypes):
 
 def yell(toYell):
 	command.CommandMPBroadcast(str(toYell)).execute()
-
-def makeitsuperweird(targetPlayerName):
-	command.CommandMPApplyShader(targetPlayerName).execute()
