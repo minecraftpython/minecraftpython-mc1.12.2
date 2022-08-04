@@ -34,7 +34,6 @@ If you know that the item you are holding in your main hand is a Pythonic wand, 
 
 ## Issues
 ### Known Issues
-* There is a delay after the use, but before the enaction, of your first Python script after starting Minecraft.  
 * The supported version of Python is 2.7.2.  I feel I must personally apologize for that - I know that's not how it should be, but don't know how to fix it.
 * Crafting recipes for Pythonic wands only last until the server is reset - which, in a single-player game, is anytime you quit!
 
