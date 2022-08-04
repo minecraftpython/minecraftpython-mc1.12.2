@@ -164,14 +164,14 @@ def octahedron(x,y,z,blocktype=DIRT,size=3):
 def sphere(x,y,z,blocktype=DIRT,size=3):
 	octahedron(x,y,z,blocktype,size)
 
-def getrect(x,y,z,x2,y2,z2):    #since these names are less than cool, x,y,z, is one corner and x2,y2,z2 are the other corner of an imaginary a rectangle
+def getrect(x,y,z,x2,y2,z2):
    		return [[[getblock(i,j,k) for k in range(z,z2)] for j in range(y,y2)] for i in range(x,x2)]
 
-def setrect(x,y,z, listOfListOfListsOfBlockTypes):
-		for i in range(len(listOfListOfListsOfBlockTypes) - 1):
-			for j in range(len(listOfListOfListsOfBlockTypes[0]) - 1):
-				for k in range(len(listOfListOfListsOfBlockTypes[0][0]) - 1):
-					setblock(x+i,y+j,z+k,listOfListOfListsOfBlockTypes[i][j][k])    
+def setrect(x,y,z, blockTypes):
+		for i in range(len(blockTypes) - 1):
+			for j in range(len(blockTypes[0]) - 1):
+				for k in range(len(blockTypes[0][0]) - 1):
+					setblock(x+i,y+j,z+k,blockTypes[i][j][k])    
 
 def yell(toYell):
 	command.CommandMPBroadcast(str(toYell)).execute()
