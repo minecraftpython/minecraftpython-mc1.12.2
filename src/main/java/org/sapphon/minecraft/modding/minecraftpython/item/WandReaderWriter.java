@@ -1,5 +1,6 @@
 package org.sapphon.minecraft.modding.minecraftpython.item;
 
+import net.minecraft.block.BlockDispenser;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -7,6 +8,7 @@ import net.minecraft.nbt.NBTTagInt;
 import net.minecraft.nbt.NBTTagLong;
 import net.minecraft.nbt.NBTTagString;
 import net.minecraftforge.fml.common.registry.GameRegistry;
+import org.sapphon.minecraft.modding.minecraftpython.behavior.BehaviorExecutePython;
 import org.sapphon.minecraft.modding.minecraftpython.item.recipe.RecipePythonicWand;
 import org.sapphon.minecraft.modding.minecraftpython.spells.ISpell;
 import org.sapphon.minecraft.modding.minecraftpython.spells.metadata.SpellMetadataConstants;
@@ -24,6 +26,11 @@ public class WandReaderWriter {
         setAnvilRepair(toRecordOnto, toRecord);
         setWandSmeltingRecipe(toRecordOnto, toRecord.getSmeltingIngredient());
         setWandCraftingRecipe(toRecordOnto, toRecord.getCraftingIngredients());
+        registerWandDispenserBehavior(toRecordOnto);
+    }
+
+    protected static void registerWandDispenserBehavior(ItemStack toRecordOnto){
+        BlockDispenser.DISPENSE_BEHAVIOR_REGISTRY.putObject(toRecordOnto.getItem(), new BehaviorExecutePython());
     }
 
     protected static void setAnvilRepair(ItemStack toRecordOnto, ISpell toRecord) {
@@ -92,7 +99,7 @@ public class WandReaderWriter {
         }
     }
 
-    protected static String getWandPython(ItemStack toRead){
+    public static String getWandPython(ItemStack toRead){
         return toRead.getTagCompound() != null ? toRead.getTagCompound().getString(SpellMetadataConstants.KEY_SPELL_PYTHON) : SpellMetadataConstants.NONE;
     }
 }
