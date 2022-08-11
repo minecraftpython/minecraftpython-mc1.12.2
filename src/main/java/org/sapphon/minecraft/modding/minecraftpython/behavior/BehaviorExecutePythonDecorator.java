@@ -11,14 +11,21 @@ public class BehaviorExecutePythonDecorator implements IBehaviorDispenseItem {
 
     private IBehaviorDispenseItem defaultBehavior;
 
-    public BehaviorExecutePythonDecorator(IBehaviorDispenseItem defaultBehavior){
+    public BehaviorExecutePythonDecorator(IBehaviorDispenseItem defaultBehavior) {
         this.defaultBehavior = defaultBehavior;
     }
+
     @Override
     public ItemStack dispense(IBlockSource source, ItemStack stack) {
         if (WandReaderWriter.isMagicWand(stack)) {
             new BasicMagicItem(new StringSpell(WandReaderWriter.getWandPython(stack))).doMagic();
+            if (stack.getCount() <= 1) {
+                return ItemStack.EMPTY;
+            } else {
+                stack.shrink(1);
+                return stack;
+            }
         }
-        return defaultBehavior.dispense(source, stack);
+        else return defaultBehavior.dispense(source, stack);
     }
 }
