@@ -8,12 +8,11 @@ import net.minecraft.nbt.NBTTagInt;
 import net.minecraft.nbt.NBTTagLong;
 import net.minecraft.nbt.NBTTagString;
 import net.minecraftforge.fml.common.registry.GameRegistry;
-import org.sapphon.minecraft.modding.minecraftpython.behavior.BehaviorExecutePython;
+import org.sapphon.minecraft.modding.minecraftpython.behavior.BehaviorExecutePythonDecorator;
 import org.sapphon.minecraft.modding.minecraftpython.item.recipe.RecipePythonicWand;
 import org.sapphon.minecraft.modding.minecraftpython.spells.ISpell;
 import org.sapphon.minecraft.modding.minecraftpython.spells.metadata.SpellMetadataConstants;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class WandReaderWriter {
@@ -30,7 +29,7 @@ public class WandReaderWriter {
     }
 
     protected static void registerWandDispenserBehavior(ItemStack toRecordOnto){
-        BlockDispenser.DISPENSE_BEHAVIOR_REGISTRY.putObject(toRecordOnto.getItem(), new BehaviorExecutePython());
+        BlockDispenser.DISPENSE_BEHAVIOR_REGISTRY.putObject(toRecordOnto.getItem(), new BehaviorExecutePythonDecorator(BlockDispenser.DISPENSE_BEHAVIOR_REGISTRY.getObject(toRecordOnto.getItem())));
     }
 
     protected static void setAnvilRepair(ItemStack toRecordOnto, ISpell toRecord) {
