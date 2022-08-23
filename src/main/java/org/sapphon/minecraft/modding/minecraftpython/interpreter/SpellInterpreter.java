@@ -10,10 +10,12 @@ import org.sapphon.minecraft.modding.minecraftpython.problemhandlers.PythonProbl
 import org.sapphon.minecraft.modding.minecraftpython.spells.ISpell;
 
 import java.io.File;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 public class SpellInterpreter {
 
-    private PythonInterpreter interpreter;
+    private final PythonInterpreter interpreter;
 
     String scriptBasePath = ScriptLoaderConstants.SCRIPTS_PATH + File.separatorChar + "base";
     String basePathWithTrailingSeparator = scriptBasePath + File.separatorChar;
@@ -25,8 +27,11 @@ public class SpellInterpreter {
     String colorsScriptPath = basePathWithTrailingSeparator + "colors.py";
     String adminScriptPath = basePathWithTrailingSeparator + "admin.py";
 
-
     public SpellInterpreter() {
+        this(new LinkedHashMap<>());
+    }
+
+    public SpellInterpreter(Map<String, String> globals) {
         this.interpreter = new PythonInterpreter();
         this.interpreter.getSystemState().path.add(scriptBasePath);
         String[] paths = new String[]{colorsScriptPath, blockScriptPath,
@@ -40,7 +45,17 @@ public class SpellInterpreter {
                                         + path
                                         + " to the Jython interpreter's consciousness."));
             }
+            setGlobalVariables(globals);
+        }
+    }
 
+    private void setGlobalVariables(Map<String, String> globals) {
+        synchronized (interpreter) {
+            try {
+                globals.forEach((key, value) -> this.interpreter.set(key, value));
+            } catch (Exception e) {
+                PythonProblemHandler.printErrorMessageToDialogBox(e);
+            }
         }
     }
 
