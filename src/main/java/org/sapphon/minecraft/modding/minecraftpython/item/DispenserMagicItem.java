@@ -1,27 +1,32 @@
 package org.sapphon.minecraft.modding.minecraftpython.item;
 
+import net.minecraft.block.BlockDispenser;
 import net.minecraft.dispenser.IBlockSource;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.math.Vec3i;
 import org.sapphon.minecraft.modding.minecraftpython.interpreter.SpellInterpreter;
 import org.sapphon.minecraft.modding.minecraftpython.spells.ISpell;
 
 import java.util.LinkedHashMap;
 
 public class DispenserMagicItem extends BasicMagicItem {
-    private final int dispenserFacingX;
-    private final int dispenserFacingY;
-    private final int dispenserFacingZ;
+    private int dispenserFacingX;
+    private int dispenserFacingY;
+    private int dispenserFacingZ;
     private double dispenserX;
     private double dispenserY;
     private double dispenserZ;
 
     public DispenserMagicItem(ISpell boundSpell, IBlockSource dispenser) {
         super(boundSpell);
-        this.dispenserX = dispenser.getX();
-        this.dispenserY = dispenser.getY();
-        this.dispenserZ = dispenser.getZ();
-        this.dispenserFacingX = dispenser.getBlockPos().getX();
-        this.dispenserFacingY = dispenser.getBlockPos().getY();
-        this.dispenserFacingZ = dispenser.getBlockPos().getZ();
+        EnumFacing facing = dispenser.getBlockState().getValue(BlockDispenser.FACING);
+        Vec3i directionVec = facing.getDirectionVec();
+        this.dispenserFacingX = directionVec.getX();
+        this.dispenserFacingY = directionVec.getY();
+        this.dispenserFacingZ = directionVec.getZ();
+        this.dispenserX = dispenser.getX() + directionVec.getX();
+        this.dispenserY = dispenser.getY() + directionVec.getY();
+        this.dispenserZ = dispenser.getZ() + directionVec.getZ();
     }
 
     @Override
