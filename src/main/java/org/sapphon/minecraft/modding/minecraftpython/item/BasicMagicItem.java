@@ -90,8 +90,12 @@ public class BasicMagicItem {
 
     protected synchronized void castStoredSpell() {
         ThreadFactory.makeSpellThread(
-                new SpellCastingRunnable(this.storedSpell, new SpellInterpreter()))
+                new SpellCastingRunnable(this.storedSpell, getSpellInterpreter()))
                 .start();
+    }
+
+    protected SpellInterpreter getSpellInterpreter() {
+        return new SpellInterpreter();
     }
 
     public ISpell getStoredSpell() {
