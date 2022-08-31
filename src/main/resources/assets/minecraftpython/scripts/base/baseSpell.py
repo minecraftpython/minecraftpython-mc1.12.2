@@ -14,9 +14,13 @@ PLAYER='player'
 ###ENDORIGINS
 
 def _get_my_position():
+	if('dispenser_x' in globals()):
+		return [globals()['dispenser_x'], globals()['dispenser_y'], globals()['dispenser_z']]
 	return command.CommandMPGetPlayerPosition().execute()
 	
 def _get_my_look():
+	if('dispenser_look_x' in globals()):
+		return [globals()['dispenser_look_x'], globals()['dispenser_look_y'], globals()['dispenser_look_z']]
 	return command.CommandMPGetPlayerLookVector().execute()
 
 def _get_player_name():

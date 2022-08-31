@@ -31,8 +31,9 @@ public class SpellInterpreter {
         this(new LinkedHashMap<>());
     }
 
-    public SpellInterpreter(Map<String, String> globals) {
+    public SpellInterpreter(Map<String, String> locals) {
         this.interpreter = new PythonInterpreter();
+        setLocalVariables(locals);
         this.interpreter.getSystemState().path.add(scriptBasePath);
         String[] paths = new String[]{colorsScriptPath, blockScriptPath,
                 entitiesScriptPath, itemScriptPath, particleScriptPath,
@@ -45,14 +46,13 @@ public class SpellInterpreter {
                                         + path
                                         + " to the Jython interpreter's consciousness."));
             }
-            setGlobalVariables(globals);
         }
     }
 
-    private void setGlobalVariables(Map<String, String> globals) {
+    private void setLocalVariables(Map<String, String> globals) {
         synchronized (interpreter) {
             try {
-                globals.forEach((key, value) -> this.interpreter.set(key, value));
+                globals.forEach((key, value) -> this.interpreter.exec(key + " = " + value));
             } catch (Exception e) {
                 PythonProblemHandler.printErrorMessageToDialogBox(e);
             }
@@ -60,29 +60,12 @@ public class SpellInterpreter {
     }
 
     private boolean executePythonFile(String pythonFilePath) {
-        synchronized (interpreter) {
-            try {
-                String textContentOfFile = JavaFileIOHelper.SINGLETON
-                        .getTextContentOfFile(new File(pythonFilePath));
-                interpreter.exec(textContentOfFile);
-            } catch (Exception e) {
-                PythonProblemHandler.printErrorMessageToDialogBox(e);
-                return false;
-            }
-            return true;
-        }
+        return interpretPython(JavaFileIOHelper.SINGLETON
+                .getTextContentOfFile(new File(pythonFilePath)));
     }
 
     public boolean interpretSpell(ISpell spell) {
-        synchronized (interpreter) {
-            try {
-                interpreter.exec(spell.getCompiledPythonCode(interpreter));
-            } catch (Exception e) {
-                PythonProblemHandler.printErrorMessageToDialogBox(e);
-                return false;
-            }
-            return true;
-        }
+        return interpretPython(spell.getPythonScriptAsString());
     }
 
     public boolean interpretPython(String python) {
