@@ -37,7 +37,8 @@ public class MinecraftPythonKeyHandler {
                 keyBindings[CAST_SPELL_KEY_INDEX].isPressed()) {
             device.doMagic();
         } else if (ModConfigurationFlags.WAND_RECORDING() &&
-                keyBindings[RECORD_WAND_KEY_INDEX].isPressed()) {
+                keyBindings[RECORD_WAND_KEY_INDEX].isPressed() &&
+                !device.getStoredSpell().getPythonScriptAsString().isEmpty()){
             new CommandMPEnsorcelItem(Minecraft.getMinecraft().player.getName(), device.getStoredSpell().getPythonScriptAsString()).execute();
         } else if (ModConfigurationFlags.WAND_READING() &&
                 keyBindings[READ_WAND_KEY_INDEX].isPressed()) {
