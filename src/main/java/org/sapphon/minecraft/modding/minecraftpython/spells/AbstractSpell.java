@@ -89,6 +89,17 @@ public abstract class AbstractSpell implements ISpell {
     }
 
     @Override
+    public List<String> getDispenserBehaviors(){
+        String behaviorsString = getMetadataValueOrNONEIfNotPresent(SpellMetadataConstants.KEY_DISPENSER_BEHAVIOR);
+        if(behaviorsString.equals(SpellMetadataConstants.NONE)){
+            return new ArrayList<>();
+        }
+        else{
+            return Arrays.stream(behaviorsString.split(",",9)).collect(Collectors.toList());
+        }
+    }
+
+    @Override
     public String getAuthorName() {
         String value = getMetadataValueOrNONEIfNotPresent(SpellMetadataConstants.KEY_AUTHOR_NAME);
         if (value.equals(SpellMetadataConstants.NONE)) {

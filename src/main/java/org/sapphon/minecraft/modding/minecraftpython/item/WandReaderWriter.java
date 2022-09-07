@@ -13,7 +13,10 @@ import org.sapphon.minecraft.modding.minecraftpython.item.recipe.RecipePythonicW
 import org.sapphon.minecraft.modding.minecraftpython.spells.ISpell;
 import org.sapphon.minecraft.modding.minecraftpython.spells.metadata.SpellMetadataConstants;
 
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class WandReaderWriter {
     public static void recordOntoItem(ISpell toRecord, ItemStack toRecordOnto) {
@@ -22,6 +25,7 @@ public class WandReaderWriter {
         setWandRequiredExperience(toRecordOnto, toRecord);
         setWandAuthor(toRecordOnto, toRecord.getAuthorName());
         setWandPython(toRecordOnto, toRecord.getPythonScriptAsString());
+        setWandDispenserBehaviors(toRecordOnto, toRecord.getDispenserBehaviors());
         setAnvilRepair(toRecordOnto, toRecord);
         setWandSmeltingRecipe(toRecordOnto, toRecord.getSmeltingIngredient());
         setWandCraftingRecipe(toRecordOnto, toRecord.getCraftingIngredients());
@@ -49,6 +53,12 @@ public class WandReaderWriter {
         }
     }
 
+    protected static void setWandDispenserBehaviors(ItemStack toRecordOnto, List<String> dispenserBehaviors) {
+            if (dispenserBehaviors.size() > 0) {
+                toRecordOnto.setTagInfo(SpellMetadataConstants.KEY_DISPENSER_BEHAVIOR, new NBTTagString(String.join(",", dispenserBehaviors)));
+            }
+    }
+
     protected static void setWandSmeltingRecipe(ItemStack toBeSmelted, String ingredientName) {
         if (!ingredientName.equals(SpellMetadataConstants.NONE)) {
             Item ingredientItem = Item.getByNameOrId(ingredientName);
@@ -60,6 +70,12 @@ public class WandReaderWriter {
 
     public static String getWandAnvilItem(ItemStack toRead){
         return toRead.getTagCompound() != null ? toRead.getTagCompound().getString(SpellMetadataConstants.KEY_ANVIL_ITEM) : SpellMetadataConstants.NONE;
+    }
+
+    public static List<String> getWandDispenserBehaviors(ItemStack toRead){
+        String behaviorsString = toRead.getTagCompound() != null ? toRead.getTagCompound().getString(SpellMetadataConstants.KEY_DISPENSER_BEHAVIOR) : SpellMetadataConstants.NONE;
+        if(behaviorsString.isEmpty() || behaviorsString.equals(SpellMetadataConstants.NONE)) return Collections.emptyList();
+        return Arrays.stream(behaviorsString.split(",",9)).collect(Collectors.toList());
     }
 
     public static int getWandAnvilCost(ItemStack toRead) {

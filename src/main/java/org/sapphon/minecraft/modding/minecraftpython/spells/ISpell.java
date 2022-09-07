@@ -8,29 +8,31 @@ import java.util.List;
 
 
 public interface ISpell {
-    public String getPythonScriptAsString();
+    String getPythonScriptAsString();
 
-    public PyCode getCompiledPythonCode(PythonInterpreter interpreter);
+    PyCode getCompiledPythonCode(PythonInterpreter interpreter);
 
-    public int getRequiredExperienceLevels();
+    int getRequiredExperienceLevels();
 
-    public int getRequiredExperiencePoints();
+    int getRequiredExperiencePoints();
 
-    public int getConsumedExperienceLevels();
+    int getConsumedExperienceLevels();
 
-    public int getConsumedExperiencePoints();
+    int getConsumedExperiencePoints();
 
-    public String getAuthorName();
+    String getAuthorName();
 
-    public String getDisplayName();
+    String getDisplayName();
 
-    public long getCooldownInMilliseconds();
+    long getCooldownInMilliseconds();
 
-    public String getSmeltingIngredient();
+    String getSmeltingIngredient();
 
-    public String getAnvilIngredient();
+    String getAnvilIngredient();
 
-    public int getAnvilCost();
+    int getAnvilCost();
 
     List<String> getCraftingIngredients();
+
+    List<String> getDispenserBehaviors();
 }
