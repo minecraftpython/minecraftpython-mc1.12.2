@@ -54,9 +54,14 @@ None of these properties alter your game world, only inform your script about it
 	* USES: Returns the position of the executing player as a 3-axis vector.
 
 * `player.look`
-	* N: nothing
+	* IN: nothing
 	* OUT: MinecraftPythonVec3
 	* USES: Returns the 'look vector' of the executing player.
+
+* `player.looked_at_block_position`
+	* IN: nothing
+	* OUT: MinecraftPythonVec3
+	* USES: Returns the first block along the player's "look vector" that is solid (not gaseous, not liquid).
 
 ## Functions for altering the Minecraft world
 
